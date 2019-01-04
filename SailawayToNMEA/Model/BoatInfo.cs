@@ -7,7 +7,7 @@ using System;
 
 namespace SailawayToNMEA.Model
 ***REMOVED***
-    class BoatInfo
+    public class BoatInfo
     ***REMOVED***
         [DeserializeAs(Name = "usrnr")]
         public Int64 UserNumber ***REMOVED*** get; set; ***REMOVED***
