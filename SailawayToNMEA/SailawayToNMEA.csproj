@@ -40,6 +40,7 @@
       <HintPath>packages\RestSharp.106.6.3\lib\net452\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -57,6 +58,9 @@
     <Compile Include="API\Tasks.cs" />
     <Compile Include="App\Conf.cs" />
     <Compile Include="App\Global.cs" />
+    <Compile Include="App\Messages\SelectedBoatRefreshed.cs" />
+    <Compile Include="App\Messages\LogMessage.cs" />
+    <Compile Include="App\Messages\BoatsRefreshed.cs" />
     <Compile Include="Model\BoatInfo.cs" />
     <Compile Include="API\Response\BoatsResponse.cs" />
     <Compile Include="SailawayToNMEA.cs">
@@ -67,6 +71,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Texts.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Texts.resx</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="TinyMessenger.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -78,6 +89,11 @@
     </Compile>
     <EmbeddedResource Include="SailawayToNMEA.resx">
       <DependentUpon>SailawayToNMEA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Texts.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Texts.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
