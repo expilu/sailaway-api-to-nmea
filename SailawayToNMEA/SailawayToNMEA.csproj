@@ -53,8 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\Methods.cs" />
+    <Compile Include="API\Tasks.cs" />
+    <Compile Include="App\Conf.cs" />
+    <Compile Include="App\Global.cs" />
     <Compile Include="Model\BoatInfo.cs" />
-    <Compile Include="Net\Response\BoatsResponse.cs" />
+    <Compile Include="API\Response\BoatsResponse.cs" />
     <Compile Include="SailawayToNMEA.cs">
       <SubType>Form</SubType>
     </Compile>
