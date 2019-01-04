@@ -16,5 +16,9 @@ namespace SailawayToNMEA
         {
             InitializeComponent();
         }
+
+        private void SailawayToNMEA_Load(object sender, EventArgs e)
+        {
+        }
     }
 }
