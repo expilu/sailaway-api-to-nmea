@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\Global.cs" />
     <Compile Include="Model\BoatInfo.cs" />
     <Compile Include="Net\Response\BoatsResponse.cs" />
     <Compile Include="SailawayToNMEA.cs">

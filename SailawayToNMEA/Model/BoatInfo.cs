@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SailawayToNMEA.Model
 {
-    class BoatInfo
+    public class BoatInfo
     {
         [DeserializeAs(Name = "usrnr")]
         public Int64 UserNumber { get; set; }
