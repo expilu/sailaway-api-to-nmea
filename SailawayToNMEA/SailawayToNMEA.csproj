@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\BoatInfo.cs" />
+    <Compile Include="Net\Response\BoatsResponse.cs" />
     <Compile Include="SailawayToNMEA.cs">
       <SubType>Form</SubType>
     </Compile>
