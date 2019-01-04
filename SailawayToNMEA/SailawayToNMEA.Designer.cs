@@ -1,4 +1,7 @@
-﻿namespace SailawayToNMEA
+﻿
+using System.Windows.Forms;
+
+namespace SailawayToNMEA
 ***REMOVED***
     partial class SailawayToNMEA
     ***REMOVED***
@@ -32,6 +35,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxUsername = new System.Windows.Forms.TextBox();
             this.numericUpDownPort = new System.Windows.Forms.NumericUpDown();
+            this.textBoxLog = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBoxBoats = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPort)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,10 +61,12 @@
             // 
             // textBoxUsername
             // 
+            this.textBoxUsername.Enabled = false;
             this.textBoxUsername.Location = new System.Drawing.Point(102, 47);
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(100, 20);
             this.textBoxUsername.TabIndex = 3;
+            this.textBoxUsername.TextChanged += new System.EventHandler(this.textBoxUsername_TextChanged);
             // 
             // numericUpDownPort
             // 
@@ -82,11 +90,47 @@
             0,
             0***REMOVED***);
             // 
+            // textBoxLog
+            // 
+            this.textBoxLog.AcceptsReturn = true;
+            this.textBoxLog.AcceptsTab = true;
+            this.textBoxLog.CausesValidation = false;
+            this.textBoxLog.Location = new System.Drawing.Point(12, 129);
+            this.textBoxLog.Multiline = true;
+            this.textBoxLog.Name = "textBoxLog";
+            this.textBoxLog.ReadOnly = true;
+            this.textBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxLog.Size = new System.Drawing.Size(776, 309);
+            this.textBoxLog.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(67, 82);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Boat";
+            // 
+            // comboBoxBoats
+            // 
+            this.comboBoxBoats.Enabled = false;
+            this.comboBoxBoats.FormattingEnabled = true;
+            this.comboBoxBoats.Location = new System.Drawing.Point(102, 79);
+            this.comboBoxBoats.Name = "comboBoxBoats";
+            this.comboBoxBoats.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxBoats.Sorted = true;
+            this.comboBoxBoats.TabIndex = 7;
+            this.comboBoxBoats.SelectedIndexChanged += new System.EventHandler(this.comboBoxBoats_SelectedIndexChanged);
+            // 
             // SailawayToNMEA
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.comboBoxBoats);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.textBoxLog);
             this.Controls.Add(this.numericUpDownPort);
             this.Controls.Add(this.textBoxUsername);
             this.Controls.Add(this.label2);
@@ -94,6 +138,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "SailawayToNMEA";
             this.Text = "Sailaway to NMEA";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SailawayToNMEA_FormClosing);
             this.Load += new System.EventHandler(this.SailawayToNMEA_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPort)).EndInit();
             this.ResumeLayout(false);
@@ -107,6 +152,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxUsername;
         private System.Windows.Forms.NumericUpDown numericUpDownPort;
+        private System.Windows.Forms.TextBox textBoxLog;
+        private Label label3;
+        private ComboBox comboBoxBoats;
 ***REMOVED***
 ***REMOVED***
 
