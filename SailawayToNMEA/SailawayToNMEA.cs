@@ -16,5 +16,9 @@ namespace SailawayToNMEA
         ***REMOVED***
             InitializeComponent();
     ***REMOVED***
+
+        private void SailawayToNMEA_Load(object sender, EventArgs e)
+        ***REMOVED***
+    ***REMOVED***
 ***REMOVED***
 ***REMOVED***
