@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SailawayToNMEA
 ***REMOVED***
-    public partial class Form1 : Form
+    public partial class SailawayToNMEA : Form
     ***REMOVED***
-        public Form1()
+        public SailawayToNMEA()
         ***REMOVED***
             InitializeComponent();
     ***REMOVED***
