@@ -1,16 +1,16 @@
 ﻿using RestSharp.Deserializers;
 using SailawayToNMEA.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+***REMOVED***
+***REMOVED***
+***REMOVED***
+***REMOVED***
 
 namespace SailawayToNMEA.API.Response
-{
+***REMOVED***
     class BoatsResponse
-    {
+    ***REMOVED***
         [DeserializeAs(Name = "boats")]
-        public List<BoatInfo> Boats { get; set; }
-    }
-}
+        public List<BoatInfo> Boats ***REMOVED*** get; set; ***REMOVED***
+***REMOVED***
+***REMOVED***

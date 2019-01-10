@@ -2,9 +2,9 @@
 using System.Windows.Forms;
 
 namespace SailawayToNMEA
-{
+***REMOVED***
     partial class SailawayToNMEA
-    {
+    ***REMOVED***
         /// <summary>
         /// Variable del diseñador necesaria.
         /// </summary>
@@ -15,13 +15,13 @@ namespace SailawayToNMEA
         /// </summary>
         /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
-        {
+        ***REMOVED***
             if (disposing && (components != null))
-            {
+            ***REMOVED***
                 components.Dispose();
-            }
+        ***REMOVED***
             base.Dispose(disposing);
-        }
+    ***REMOVED***
 
         #region Código generado por el Diseñador de Windows Forms
 
@@ -30,7 +30,7 @@ namespace SailawayToNMEA
         /// el contenido de este método con el editor de código.
         /// </summary>
         private void InitializeComponent()
-        {
+        ***REMOVED***
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxUsername = new System.Windows.Forms.TextBox();
@@ -73,24 +73,24 @@ namespace SailawayToNMEA
             // numericUpDownPort
             // 
             this.numericUpDownPort.Location = new System.Drawing.Point(102, 12);
-            this.numericUpDownPort.Maximum = new decimal(new int[] {
+            this.numericUpDownPort.Maximum = new decimal(new int[] ***REMOVED***
             65535,
             0,
             0,
-            0});
-            this.numericUpDownPort.Minimum = new decimal(new int[] {
+            0***REMOVED***);
+            this.numericUpDownPort.Minimum = new decimal(new int[] ***REMOVED***
             1,
             0,
             0,
-            0});
+            0***REMOVED***);
             this.numericUpDownPort.Name = "numericUpDownPort";
             this.numericUpDownPort.Size = new System.Drawing.Size(100, 20);
             this.numericUpDownPort.TabIndex = 4;
-            this.numericUpDownPort.Value = new decimal(new int[] {
+            this.numericUpDownPort.Value = new decimal(new int[] ***REMOVED***
             10110,
             0,
             0,
-            0});
+            0***REMOVED***);
             this.numericUpDownPort.ValueChanged += new System.EventHandler(this.numericUpDownPort_ValueChanged);
             // 
             // textBoxLog
@@ -172,7 +172,7 @@ namespace SailawayToNMEA
             this.ResumeLayout(false);
             this.PerformLayout();
 
-        }
+    ***REMOVED***
 
         #endregion
 
@@ -185,6 +185,6 @@ namespace SailawayToNMEA
         private ComboBox comboBoxBoats;
         private Button buttonStart;
         private Label label4;
-    }
-}
+***REMOVED***
+***REMOVED***
 

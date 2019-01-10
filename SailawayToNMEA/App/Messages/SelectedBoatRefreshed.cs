@@ -1,17 +1,17 @@
 ﻿using SailawayToNMEA.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+***REMOVED***
+***REMOVED***
+***REMOVED***
+***REMOVED***
 using TinyMessenger;
 
-namespace SailawayToNMEA.App.Messages
-{
+***REMOVED***.Messages
+***REMOVED***
     public class SelectedBoatRefreshed : GenericTinyMessage<BoatInfo>
-    {
+    ***REMOVED***
         public SelectedBoatRefreshed(object sender, BoatInfo boat) : base(sender, boat)
-        {
-        }
-    }
-}
+        ***REMOVED***
+    ***REMOVED***
+***REMOVED***
+***REMOVED***
