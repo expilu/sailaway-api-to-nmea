@@ -13,7 +13,7 @@ namespace SailawayToNMEA.App
 #if DEBUG
         public const int REQUEST_RATE = 10000;
 #else
-        public const int REQUEST_RATE = 10 * 60 * 60 * 1000;
+        public const int REQUEST_RATE = 10 * 60 * 1000;
 #endif
         public const double MS_TO_KNOTS = 1.94384;
     }
