@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>***REMOVED***9D4B2FB5-BCF7-4436-A7F3-F9B0A38FDFB9***REMOVED***</ProjectGuid>
+    <ProjectGuid>{9D4B2FB5-BCF7-4436-A7F3-F9B0A38FDFB9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>SailawayToNMEA</RootNamespace>
     <AssemblyName>SailawayToNMEA</AssemblyName>

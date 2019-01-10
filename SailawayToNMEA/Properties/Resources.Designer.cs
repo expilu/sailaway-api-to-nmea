@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace SailawayToNMEA.Properties
-***REMOVED***
+{
 
 
     /// <summary>
@@ -23,7 +23,7 @@ namespace SailawayToNMEA.Properties
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources
-    ***REMOVED***
+    {
 
         private static global::System.Resources.ResourceManager resourceMan;
 
@@ -31,25 +31,25 @@ namespace SailawayToNMEA.Properties
 
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Resources()
-        ***REMOVED***
-    ***REMOVED***
+        {
+        }
 
         /// <summary>
         ///   Devuelve la instancia ResourceManager almacenada en caché utilizada por esta clase.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Resources.ResourceManager ResourceManager
-        ***REMOVED***
+        {
             get
-            ***REMOVED***
+            {
                 if ((resourceMan == null))
-                ***REMOVED***
+                {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SailawayToNMEA.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
-            ***REMOVED***
+                }
                 return resourceMan;
-        ***REMOVED***
-    ***REMOVED***
+            }
+        }
 
         /// <summary>
         ///   Invalida la propiedad CurrentUICulture del subproceso actual para todas las
@@ -57,15 +57,15 @@ namespace SailawayToNMEA.Properties
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Globalization.CultureInfo Culture
-        ***REMOVED***
+        {
             get
-            ***REMOVED***
+            {
                 return resourceCulture;
-        ***REMOVED***
+            }
             set
-            ***REMOVED***
+            {
                 resourceCulture = value;
-        ***REMOVED***
-    ***REMOVED***
-***REMOVED***
-***REMOVED***
+            }
+        }
+    }
+}
