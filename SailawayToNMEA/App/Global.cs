@@ -1,4 +1,5 @@
-﻿using SailawayToNMEA.API;
+﻿using NMEAServerLib;
+using SailawayToNMEA.API;
 using SailawayToNMEA.App.Messages;
 using SailawayToNMEA.Model;
 using System;
@@ -33,18 +34,38 @@ using TinyMessenger;
             MessageHub.Subscribe<SelectedBoatRefreshed>((m) => ***REMOVED***
                 Boat = m.Content;
                 MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("BoatDataRefreshed")));
+                Boat.toInstrumentsData(ref boatData);
         ***REMOVED***);
 
             AllBoatsCancellationTokenSource = new CancellationTokenSource();
-            allBoatsCancellationToken = AllBoatsCancellationTokenSource.Token;
+            allBoatsCancellationToken = AllBoatsCancellationTokenSource.Token;            
 
             Tasks.RefreshAllBoats(allBoatsCancellationToken);
+
+            nmeaServer = new NMEAServer(ref boatData, NmeaTcpPort, Conf.NMEA_SEND_RATE);
+            nmeaServer.OnServerStarted += delegate
+            ***REMOVED***
+                MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("NMEAServerStarted") + " " + NmeaTcpPort));
+        ***REMOVED***;
+            nmeaServer.OnServerStop += delegate
+            ***REMOVED***
+                MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("NMEAServerStopped")));
+        ***REMOVED***;
+            nmeaServer.OnNMEASent += NmeaServer_OnNMEASent;
+    ***REMOVED***
+
+        private void NmeaServer_OnNMEASent(string nmea)
+        ***REMOVED***
+            MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("NMEASent") + nmea.Replace("$", "\r\n$") + "\r\n"));
     ***REMOVED***
 
         public CancellationTokenSource AllBoatsCancellationTokenSource;
         private CancellationToken allBoatsCancellationToken;
-        private CancellationTokenSource selectedBoatCancellationTokenSource;
-        private CancellationToken selectedBoatCancellationToken;
+        public CancellationTokenSource SelectedBoatCancellationTokenSource;
+
+        private NMEAServer nmeaServer;
+        public int NmeaTcpPort = 10110;
+        private InstrumentsData boatData = new InstrumentsData(); 
 
         public List<BoatInfo> AllBoats ***REMOVED*** get; set; ***REMOVED***
 
@@ -75,23 +96,10 @@ using TinyMessenger;
                 NotifyPropertyChanged("UserBoats");
         ***REMOVED***
     ***REMOVED***
+        
+        public Nullable<Int64> SelectedBoatNumber ***REMOVED*** get; set; ***REMOVED***
 
-        private Nullable<Int64> _selectedBoatNumber;
-        public Nullable<Int64> SelectedBoatNumber
-        ***REMOVED***
-            get ***REMOVED*** return _selectedBoatNumber; ***REMOVED***
-            set
-            ***REMOVED***
-                _selectedBoatNumber = value;
-                relaunchSelectedBoatDataRefreshTask();
-        ***REMOVED***
-    ***REMOVED***
-
-        public BoatInfo Boat
-        ***REMOVED***
-            get;
-            set;
-    ***REMOVED***
+        public BoatInfo Boat ***REMOVED*** get; set; ***REMOVED***
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
@@ -103,13 +111,26 @@ using TinyMessenger;
         ***REMOVED***
     ***REMOVED***
 
-        private void relaunchSelectedBoatDataRefreshTask()
+        public void LaunchSelectedBoatDataRefreshTask()
         ***REMOVED***
-            if(selectedBoatCancellationTokenSource != null) selectedBoatCancellationTokenSource.Cancel();
-            selectedBoatCancellationTokenSource = new CancellationTokenSource();
-            selectedBoatCancellationToken = AllBoatsCancellationTokenSource.Token;
+            StopSelectedBoatDataRefreshTask();
 
-            Tasks.RefreshSelectedBoat(selectedBoatCancellationToken);
+            if (SelectedBoatNumber != null)
+            ***REMOVED***
+                SelectedBoatCancellationTokenSource = new CancellationTokenSource();
+
+                Tasks.RefreshSelectedBoat(SelectedBoatCancellationTokenSource.Token);
+                nmeaServer.Start();
+        ***REMOVED***
+    ***REMOVED***
+
+        public void StopSelectedBoatDataRefreshTask()
+        ***REMOVED***
+            if (SelectedBoatCancellationTokenSource != null)
+            ***REMOVED***
+                SelectedBoatCancellationTokenSource.Cancel();
+                nmeaServer.Stop();
+        ***REMOVED***
     ***REMOVED***
 ***REMOVED***
 ***REMOVED***

@@ -13,7 +13,7 @@ namespace SailawayToNMEA
 ***REMOVED***
     public partial class SailawayToNMEA : Form
     ***REMOVED***
-        public object Globals ***REMOVED*** get; private set; ***REMOVED***
+        private bool selectedBoatRefreshStarted = false;
 
         public SailawayToNMEA()
         ***REMOVED***
@@ -40,6 +40,7 @@ namespace SailawayToNMEA
         private void SailawayToNMEA_FormClosing(object sender, FormClosingEventArgs e)
         ***REMOVED***
             Global.Instance.AllBoatsCancellationTokenSource.Cancel();
+            if(Global.Instance.SelectedBoatCancellationTokenSource != null) Global.Instance.SelectedBoatCancellationTokenSource.Cancel();
     ***REMOVED***
 
         private void WriteToLog(string txt)
@@ -51,7 +52,7 @@ namespace SailawayToNMEA
 
         private void textBoxUsername_TextChanged(object sender, EventArgs e)
         ***REMOVED***
-            Global.Instance.UserName = textBoxUsername.Text.Trim();
+            Global.Instance.UserName = textBoxUsername.Text;
     ***REMOVED***
 
         private void userBoatsChanged(object sender, PropertyChangedEventArgs e)
@@ -67,13 +68,39 @@ namespace SailawayToNMEA
             comboBoxBoats.DataSource = Global.Instance.UserBoats;
             comboBoxBoats.DisplayMember = "BoatName";
             comboBoxBoats.ValueMember = "BoatNumber";
-            comboBoxBoats.Enabled = Global.Instance.UserBoats.Count > 0;
-            Global.Instance.SelectedBoatNumber = null;
+            bool hasBoats = Global.Instance.UserBoats.Count > 0;
+            comboBoxBoats.Enabled = hasBoats;
+            buttonStart.Enabled = hasBoats;
+            if(!hasBoats) Global.Instance.SelectedBoatNumber = null;
     ***REMOVED***
 
         private void comboBoxBoats_SelectedIndexChanged(object sender, EventArgs e)
         ***REMOVED***
             Global.Instance.SelectedBoatNumber = (Int64) comboBoxBoats.SelectedValue;
+    ***REMOVED***
+
+        private void buttonStart_Click(object sender, EventArgs e)
+        ***REMOVED***
+            if(selectedBoatRefreshStarted)
+            ***REMOVED***
+                Global.Instance.StopSelectedBoatDataRefreshTask();
+                buttonStart.Text = Global.Instance.Texts.GetString("Start");
+        ***REMOVED*** else
+            ***REMOVED***
+                Global.Instance.LaunchSelectedBoatDataRefreshTask();
+                buttonStart.Text = Global.Instance.Texts.GetString("Stop");
+        ***REMOVED***
+
+            selectedBoatRefreshStarted = !selectedBoatRefreshStarted;
+
+            numericUpDownPort.Enabled = !selectedBoatRefreshStarted;
+            textBoxUsername.Enabled = !selectedBoatRefreshStarted;
+            comboBoxBoats.Enabled = !selectedBoatRefreshStarted;
+    ***REMOVED***
+
+        private void numericUpDownPort_ValueChanged(object sender, EventArgs e)
+        ***REMOVED***
+            Global.Instance.NmeaTcpPort = Convert.ToInt32(numericUpDownPort.Value);
     ***REMOVED***
 ***REMOVED***
 ***REMOVED***
