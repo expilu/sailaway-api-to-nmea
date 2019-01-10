@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>***REMOVED***9D4B2FB5-BCF7-4436-A7F3-F9B0A38FDFB9***REMOVED***</ProjectGuid>
+    <ProjectGuid>{9D4B2FB5-BCF7-4436-A7F3-F9B0A38FDFB9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>SailawayToNMEA</RootNamespace>
     <AssemblyName>SailawayToNMEA</AssemblyName>
@@ -31,6 +31,12 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>SailawayToNMEA.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>sailawaytonmea.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="NMEAServerLib">
@@ -109,6 +115,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="sailawaytonmea.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
