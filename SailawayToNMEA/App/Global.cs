@@ -35,7 +35,7 @@ namespace SailawayToNMEA.App
 
             MessageHub.Subscribe<SelectedBoatRefreshed>((m) => {
                 Boat = m.Content;
-                MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("BoatDataRefreshed")));
+                MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("BoatDataRefreshed") + " - " + DateTime.Now.ToString("hh:mm:ss")));
                 Boat.toInstrumentsData(ref boatData);
                 nmeaServer.SendData();
             });
@@ -137,6 +137,9 @@ namespace SailawayToNMEA.App
 
                 Tasks.RefreshSelectedBoat(SelectedBoatCancellationTokenSource.Token);
                 nmeaServer.Start();
+                TimeSpan t = TimeSpan.FromMilliseconds(Conf.REQUEST_RATE);
+                string humanReadableRate = string.Format("{0:D2}h:{1:D2}m:{2:D2}s:{3:D3}ms", t.Hours, t.Minutes, t.Seconds, t.Milliseconds);
+                MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("RequestRateInformation") + humanReadableRate));
             }
         }
 

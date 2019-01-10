@@ -124,6 +124,15 @@ namespace SailawayToNMEA.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Refresh rate set to .
+        /// </summary>
+        internal static string RequestRateInformation {
+            get {
+                return ResourceManager.GetString("RequestRateInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Start.
         /// </summary>
         internal static string Start {

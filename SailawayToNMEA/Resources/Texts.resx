@@ -138,6 +138,9 @@
   <data name="NMEAServerStoped" xml:space="preserve">
     <value>NMEA server stopped</value>
   </data>
+  <data name="RequestRateInformation" xml:space="preserve">
+    <value>Refresh rate set to </value>
+  </data>
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
