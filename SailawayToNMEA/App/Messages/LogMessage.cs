@@ -1,17 +1,17 @@
 ﻿using SailawayToNMEA.Model;
 using System;
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using TinyMessenger;
 
-***REMOVED***.Messages
-***REMOVED***
+namespace SailawayToNMEA.App.Messages
+{
     public class LogMessage : GenericTinyMessage<string>
-    ***REMOVED***
+    {
         public LogMessage(object sender, string message) : base(sender, message)
-        ***REMOVED***
-    ***REMOVED***
-***REMOVED***
-***REMOVED***
+        {
+        }
+    }
+}
