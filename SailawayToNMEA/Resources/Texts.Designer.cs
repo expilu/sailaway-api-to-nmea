@@ -61,7 +61,7 @@ namespace SailawayToNMEA.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Selected boat data refreshed.
+        ///   Busca una cadena traducida similar a Selected boat data refreshed from Sailaway server.
         /// </summary>
         internal static string BoatDataRefreshed {
             get {
@@ -70,11 +70,20 @@ namespace SailawayToNMEA.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Boats refreshed.
+        ///   Busca una cadena traducida similar a All boats data refreshed from Sailaway server.
         /// </summary>
         internal static string BoatsRefreshed {
             get {
                 return ResourceManager.GetString("BoatsRefreshed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Client connected from .
+        /// </summary>
+        internal static string ClientConnected {
+            get {
+                return ResourceManager.GetString("ClientConnected", resourceCulture);
             }
         }
         

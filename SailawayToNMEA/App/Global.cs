@@ -28,13 +28,16 @@ namespace SailawayToNMEA.App
 
             MessageHub.Subscribe<BoatsRefreshed>((m) => {
                 AllBoats = m.Content;
+#if DEBUG
                 MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("BoatsRefreshed")));
+#endif
             });
 
             MessageHub.Subscribe<SelectedBoatRefreshed>((m) => {
                 Boat = m.Content;
                 MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("BoatDataRefreshed")));
                 Boat.toInstrumentsData(ref boatData);
+                nmeaServer.SendData();
             });
 
             AllBoatsCancellationTokenSource = new CancellationTokenSource();
@@ -42,7 +45,7 @@ namespace SailawayToNMEA.App
 
             Tasks.RefreshAllBoats(allBoatsCancellationToken);
 
-            nmeaServer = new NMEAServer(ref boatData, NmeaTcpPort, Conf.NMEA_SEND_RATE);
+            nmeaServer = new NMEAServer(ref boatData, NmeaTcpPort);
             nmeaServer.OnServerStarted += delegate
             {
                 MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("NMEAServerStarted") + " " + NmeaTcpPort));
@@ -52,11 +55,24 @@ namespace SailawayToNMEA.App
                 MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("NMEAServerStopped")));
             };
             nmeaServer.OnNMEASent += NmeaServer_OnNMEASent;
+            nmeaServer.OnServerError += NmeaServer_OnServerError;
+            nmeaServer.OnClientConnected += NmeaServer_OnClientConnected;
+        }
+
+        private void NmeaServer_OnClientConnected(string address)
+        {
+            MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("ClientConnected") + address));
+            nmeaServer.SendData();
+        }
+
+        private void NmeaServer_OnServerError(Exception exception)
+        {
+            MessageHub.PublishAsync(new LogMessage(this, "Error: " + exception.Message + "\r\n"));
         }
 
         private void NmeaServer_OnNMEASent(string nmea)
         {
-            MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("NMEASent") + nmea.Replace("$", "\r\n$") + "\r\n"));
+            MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("NMEASent") + nmea.Replace("$", "\r\n$")));
         }
 
         public CancellationTokenSource AllBoatsCancellationTokenSource;

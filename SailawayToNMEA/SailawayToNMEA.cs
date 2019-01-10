@@ -46,7 +46,7 @@ namespace SailawayToNMEA
         private void WriteToLog(string txt)
         {
             textBoxLog.Invoke(new Action(() => {
-                textBoxLog.AppendText(txt + Environment.NewLine);
+                textBoxLog.AppendText(txt + Environment.NewLine + Environment.NewLine);
             }));
         }
 

@@ -118,10 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BoatDataRefreshed" xml:space="preserve">
-    <value>Selected boat data refreshed</value>
+    <value>Selected boat data refreshed from Sailaway server</value>
   </data>
   <data name="BoatsRefreshed" xml:space="preserve">
-    <value>Boats refreshed</value>
+    <value>All boats data refreshed from Sailaway server</value>
+  </data>
+  <data name="ClientConnected" xml:space="preserve">
+    <value>Client connected from </value>
   </data>
   <data name="InitialLoad" xml:space="preserve">
     <value>Retrieving initial data from Sailaway server...</value>

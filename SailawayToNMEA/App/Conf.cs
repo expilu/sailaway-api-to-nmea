@@ -15,7 +15,6 @@ namespace SailawayToNMEA.App
 #else
         public const int REQUEST_RATE = 10000;
 #endif
-        public const int NMEA_SEND_RATE = 1000;
         public const double MS_TO_KNOTS = 1.94384;
     }
 }
