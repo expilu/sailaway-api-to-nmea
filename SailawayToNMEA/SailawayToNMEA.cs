@@ -13,6 +13,7 @@ namespace SailawayToNMEA
 {
     public partial class SailawayToNMEA : Form
     {
+        private bool initialDataRetrieved = false;
         private bool selectedBoatRefreshStarted = false;
 
         public SailawayToNMEA()
@@ -27,9 +28,14 @@ namespace SailawayToNMEA
             });
 
             Global.Instance.MessageHub.Subscribe<BoatsRefreshed>((m) => {
-                textBoxUsername.Invoke(new Action(() => {
-                    textBoxUsername.Enabled = true;
-                }));
+                if (!initialDataRetrieved)
+                {
+                    initialDataRetrieved = true;
+                    textBoxUsername.Invoke(new Action(() =>
+                    {
+                        textBoxUsername.Enabled = true;
+                    }));
+                }
             });
 
             Global.Instance.PropertyChanged += userBoatsChanged;
