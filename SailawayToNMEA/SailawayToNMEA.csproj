@@ -39,7 +39,8 @@
     <ApplicationIcon>sailawaytonmea.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NMEAServerLib">
+    <Reference Include="NMEAServerLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\NMEAServerLib.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=106.6.3.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">

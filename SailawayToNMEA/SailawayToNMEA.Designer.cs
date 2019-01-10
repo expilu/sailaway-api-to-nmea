@@ -31,6 +31,7 @@ namespace SailawayToNMEA
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SailawayToNMEA));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxUsername = new System.Windows.Forms.TextBox();
@@ -164,6 +165,7 @@ namespace SailawayToNMEA
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SailawayToNMEA";
             this.Text = "Sailaway to NMEA";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SailawayToNMEA_FormClosing);
