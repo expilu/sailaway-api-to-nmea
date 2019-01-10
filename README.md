@@ -8,8 +8,8 @@ Boat data is refreshed every 10 minutes. This is to avoid overloading the Sailaw
 
 # How to use
 
-1 - Run the program and wait for it to connect to Sailaway server.
-2 - Select the TCP port you want to use.
-3 - Enter your username (exactly!) and then pick one of your boats. Your boats will only appear if you have been online in the game in the past 7 days.
-4 - Click Start
-5 - Once the server is started you can connect to its address with the chosen TCP port from your favorite software (qtVlm, OpenCPN,...). The address is usually 127.0.0.1 if you run both softwares in the same machine.
+1. Run the program and wait for it to connect to the Sailaway server.
+2. Select the TCP port you want to use.
+3. Enter your username (exactly!) and then pick one of your boats. Your boats will only appear if you have been online in the game in the past 7 days.
+4. Click Start
+5. Once the server is started you can connect to its address with the chosen TCP port from your favorite software (qtVlm, OpenCPN,...). The address is usually 127.0.0.1 if you run both softwares in the same machine.
