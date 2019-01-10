@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SailawayToNMEA.Resources ***REMOVED***
+namespace SailawayToNMEA.Resources {
     using System;
     
     
@@ -22,114 +22,114 @@ namespace SailawayToNMEA.Resources ***REMOVED***
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Texts ***REMOVED***
+    internal class Texts {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Texts() ***REMOVED***
-    ***REMOVED***
+        internal Texts() {
+        }
         
         /// <summary>
         ///   Devuelve la instancia de ResourceManager almacenada en caché utilizada por esta clase.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager ***REMOVED***
-            get ***REMOVED***
-                if (object.ReferenceEquals(resourceMan, null)) ***REMOVED***
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SailawayToNMEA.Resources.Texts", typeof(Texts).Assembly);
                     resourceMan = temp;
-            ***REMOVED***
+                }
                 return resourceMan;
-        ***REMOVED***
-    ***REMOVED***
+            }
+        }
         
         /// <summary>
         ///   Reemplaza la propiedad CurrentUICulture del subproceso actual para todas las
         ///   búsquedas de recursos mediante esta clase de recurso fuertemente tipado.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture ***REMOVED***
-            get ***REMOVED***
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
                 return resourceCulture;
-        ***REMOVED***
-            set ***REMOVED***
+            }
+            set {
                 resourceCulture = value;
-        ***REMOVED***
-    ***REMOVED***
+            }
+        }
         
         /// <summary>
         ///   Busca una cadena traducida similar a Selected boat data refreshed.
         /// </summary>
-        internal static string BoatDataRefreshed ***REMOVED***
-            get ***REMOVED***
+        internal static string BoatDataRefreshed {
+            get {
                 return ResourceManager.GetString("BoatDataRefreshed", resourceCulture);
-        ***REMOVED***
-    ***REMOVED***
+            }
+        }
         
         /// <summary>
         ///   Busca una cadena traducida similar a Boats refreshed.
         /// </summary>
-        internal static string BoatsRefreshed ***REMOVED***
-            get ***REMOVED***
+        internal static string BoatsRefreshed {
+            get {
                 return ResourceManager.GetString("BoatsRefreshed", resourceCulture);
-        ***REMOVED***
-    ***REMOVED***
+            }
+        }
         
         /// <summary>
         ///   Busca una cadena traducida similar a Retrieving initial data from Sailaway server....
         /// </summary>
-        internal static string InitialLoad ***REMOVED***
-            get ***REMOVED***
+        internal static string InitialLoad {
+            get {
                 return ResourceManager.GetString("InitialLoad", resourceCulture);
-        ***REMOVED***
-    ***REMOVED***
+            }
+        }
         
         /// <summary>
         ///   Busca una cadena traducida similar a NMEA sent:.
         /// </summary>
-        internal static string NMEASent ***REMOVED***
-            get ***REMOVED***
+        internal static string NMEASent {
+            get {
                 return ResourceManager.GetString("NMEASent", resourceCulture);
-        ***REMOVED***
-    ***REMOVED***
+            }
+        }
         
         /// <summary>
         ///   Busca una cadena traducida similar a NMEA server started in port.
         /// </summary>
-        internal static string NMEAServerStarted ***REMOVED***
-            get ***REMOVED***
+        internal static string NMEAServerStarted {
+            get {
                 return ResourceManager.GetString("NMEAServerStarted", resourceCulture);
-        ***REMOVED***
-    ***REMOVED***
+            }
+        }
         
         /// <summary>
         ///   Busca una cadena traducida similar a NMEA server stopped.
         /// </summary>
-        internal static string NMEAServerStoped ***REMOVED***
-            get ***REMOVED***
+        internal static string NMEAServerStoped {
+            get {
                 return ResourceManager.GetString("NMEAServerStoped", resourceCulture);
-        ***REMOVED***
-    ***REMOVED***
+            }
+        }
         
         /// <summary>
         ///   Busca una cadena traducida similar a Start.
         /// </summary>
-        internal static string Start ***REMOVED***
-            get ***REMOVED***
+        internal static string Start {
+            get {
                 return ResourceManager.GetString("Start", resourceCulture);
-        ***REMOVED***
-    ***REMOVED***
+            }
+        }
         
         /// <summary>
         ///   Busca una cadena traducida similar a Stop.
         /// </summary>
-        internal static string Stop ***REMOVED***
-            get ***REMOVED***
+        internal static string Stop {
+            get {
                 return ResourceManager.GetString("Stop", resourceCulture);
-        ***REMOVED***
-    ***REMOVED***
-***REMOVED***
-***REMOVED***
+            }
+        }
+    }
+}

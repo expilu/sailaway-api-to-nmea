@@ -2,74 +2,74 @@
 using RestSharp.Deserializers;
 using SailawayToNMEA.App;
 using System;
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SailawayToNMEA.Model
-***REMOVED***
+{
     public class BoatInfo
-    ***REMOVED***
+    {
         [DeserializeAs(Name = "usrnr")]
-        public Int64 UserNumber ***REMOVED*** get; set; ***REMOVED***
+        public Int64 UserNumber { get; set; }
 
         [DeserializeAs(Name = "usrname")]
-        public string UserName ***REMOVED*** get; set; ***REMOVED***
+        public string UserName { get; set; }
 
         [DeserializeAs(Name = "ubtnr")]
-        public Int64 BoatNumber ***REMOVED*** get; set; ***REMOVED***
+        public Int64 BoatNumber { get; set; }
 
         [DeserializeAs(Name = "ubtname")]
-        public string BoatName ***REMOVED*** get; set; ***REMOVED***
+        public string BoatName { get; set; }
 
         [DeserializeAs(Name = "ubtlat")]
-        public double Latitude ***REMOVED*** get; set; ***REMOVED***
+        public double Latitude { get; set; }
 
         [DeserializeAs(Name = "ubtlon")]
-        public double Longitude ***REMOVED*** get; set; ***REMOVED***
+        public double Longitude { get; set; }
 
         [DeserializeAs(Name = "ubtheading")]
-        public double Heading ***REMOVED*** get; set; ***REMOVED***
+        public double Heading { get; set; }
 
         [DeserializeAs(Name = "ubtspeed")]
-        public double Speed ***REMOVED*** get; set; ***REMOVED***
+        public double Speed { get; set; }
 
         [DeserializeAs(Name = "ubbtpnr")]
-        public int BoatType ***REMOVED*** get; set; ***REMOVED***
+        public int BoatType { get; set; }
 
         [DeserializeAs(Name = "ubtmisnr")]
-        public Int64 MissionNumber ***REMOVED*** get; set; ***REMOVED***
+        public Int64 MissionNumber { get; set; }
 
         [DeserializeAs(Name = "online")]
-        public bool Online ***REMOVED*** get; set; ***REMOVED***
+        public bool Online { get; set; }
 
         [DeserializeAs(Name = "ubttruewinddir")]
-        public Nullable<double> TrueWindDirection ***REMOVED*** get; set; ***REMOVED***
+        public Nullable<double> TrueWindDirection { get; set; }
 
         [DeserializeAs(Name = "ubttruewindangle")]
-        public Nullable<double> TrueWindAngle ***REMOVED*** get; set; ***REMOVED***
+        public Nullable<double> TrueWindAngle { get; set; }
 
         [DeserializeAs(Name = "ubtappwindangle")]
-        public Nullable<double> ApparentWindAngle ***REMOVED*** get; set; ***REMOVED***
+        public Nullable<double> ApparentWindAngle { get; set; }
 
         [DeserializeAs(Name = "ubttruewindspeed")]
-        public Nullable<double> TrueWindSpeed ***REMOVED*** get; set; ***REMOVED***
+        public Nullable<double> TrueWindSpeed { get; set; }
 
         [DeserializeAs(Name = "ubtappwindspeed")]
-        public Nullable<double> ApparentWindSpeed ***REMOVED*** get; set; ***REMOVED***
+        public Nullable<double> ApparentWindSpeed { get; set; }
 
         [DeserializeAs(Name = "ubtranaground")]
-        public bool RunAground ***REMOVED*** get; set; ***REMOVED***
+        public bool RunAground { get; set; }
 
         [DeserializeAs(Name = "ubtcourseoverground")]
-        public Nullable<double> CourseOverGround ***REMOVED*** get; set; ***REMOVED***
+        public Nullable<double> CourseOverGround { get; set; }
 
         [DeserializeAs(Name = "ubtspeedoverground")]
-        public Nullable<double> SpeedOverGround ***REMOVED*** get; set; ***REMOVED***
+        public Nullable<double> SpeedOverGround { get; set; }
 
         public void toInstrumentsData(ref InstrumentsData instrumentsData)
-        ***REMOVED***
+        {
             int awa = Convert.ToInt32(ApparentWindAngle);
             int awa360 = awa < 0 ? awa + 360 : awa;
             instrumentsData.ApparentWindAngle = awa360;
@@ -84,6 +84,6 @@ namespace SailawayToNMEA.Model
             instrumentsData.TrueWindAngle = twa360;
             instrumentsData.TrueWindSpeed = TrueWindSpeed * Conf.MS_TO_KNOTS;
             instrumentsData.WaterSpeed = Speed * Conf.MS_TO_KNOTS;
-    ***REMOVED***
-***REMOVED***
-***REMOVED***
+        }
+    }
+}
