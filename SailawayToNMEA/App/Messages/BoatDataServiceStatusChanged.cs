@@ -8,11 +8,10 @@ using TinyMessenger;
 
 namespace SailawayToNMEA.App.Messages
 {
-    public class SelectedBoatRefreshed : GenericTinyMessage<BoatInfo>
+    public class BoatDataServiceStatusChanged : GenericTinyMessage<bool>
     {
-        public SelectedBoatRefreshed(object sender, BoatInfo boat) : base(sender, boat)
+        public BoatDataServiceStatusChanged(object sender, bool started) : base(sender, started)
         {
-
         }
     }
 }

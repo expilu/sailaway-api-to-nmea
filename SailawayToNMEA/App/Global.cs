@@ -37,7 +37,7 @@ namespace SailawayToNMEA.App
                 Boat = m.Content;
                 MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("BoatDataRefreshed") + " - " + DateTime.Now.ToString("hh:mm:ss")));
                 Boat.toInstrumentsData(ref boatData);
-                nmeaServer.SendData();
+                NmeaServer.SendData();
             });
 
             AllBoatsCancellationTokenSource = new CancellationTokenSource();
@@ -45,29 +45,30 @@ namespace SailawayToNMEA.App
 
             Tasks.RefreshAllBoats(allBoatsCancellationToken);
 
-            nmeaServer = new NMEAServer(ref boatData, NmeaTcpPort);
-            nmeaServer.OnServerStarted += delegate
+            NmeaServer = new NMEAServer(ref boatData, NmeaTcpPort);
+            NmeaServer.OnServerStarted += delegate
             {
                 MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("NMEAServerStarted") + " " + NmeaTcpPort));
             };
-            nmeaServer.OnServerStop += delegate
+            NmeaServer.OnServerStop += delegate
             {
                 MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("NMEAServerStopped")));
             };
-            nmeaServer.OnNMEASent += NmeaServer_OnNMEASent;
-            nmeaServer.OnServerError += NmeaServer_OnServerError;
-            nmeaServer.OnClientConnected += NmeaServer_OnClientConnected;
+            NmeaServer.OnNMEASent += NmeaServer_OnNMEASent;
+            NmeaServer.OnServerError += NmeaServer_OnServerError;
+            NmeaServer.OnClientConnected += NmeaServer_OnClientConnected;
         }
 
         private void NmeaServer_OnClientConnected(string address)
         {
             MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("ClientConnected") + address));
-            nmeaServer.SendData();
+            NmeaServer.SendData();
         }
 
         private void NmeaServer_OnServerError(Exception exception)
-        {
-            MessageHub.PublishAsync(new LogMessage(this, "Error: " + exception.Message + "\r\n"));
+        {   
+            MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("NMEAServerError") + exception.Message + "\r\n"));
+            StopSelectedBoatDataRefreshTask();
         }
 
         private void NmeaServer_OnNMEASent(string nmea)
@@ -79,7 +80,7 @@ namespace SailawayToNMEA.App
         private CancellationToken allBoatsCancellationToken;
         public CancellationTokenSource SelectedBoatCancellationTokenSource;
 
-        private NMEAServer nmeaServer;
+        public NMEAServer NmeaServer;
         public int NmeaTcpPort = 10110;
         private InstrumentsData boatData = new InstrumentsData(); 
 
@@ -136,10 +137,11 @@ namespace SailawayToNMEA.App
                 SelectedBoatCancellationTokenSource = new CancellationTokenSource();
 
                 Tasks.RefreshSelectedBoat(SelectedBoatCancellationTokenSource.Token);
-                nmeaServer.Start();
+                NmeaServer.Start();
                 TimeSpan t = TimeSpan.FromMilliseconds(Conf.REQUEST_RATE);
                 string humanReadableRate = string.Format("{0:D2}h:{1:D2}m:{2:D2}s:{3:D3}ms", t.Hours, t.Minutes, t.Seconds, t.Milliseconds);
                 MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("RequestRateInformation") + humanReadableRate));
+                MessageHub.PublishAsync(new BoatDataServiceStatusChanged(Global.Instance, true));
             }
         }
 
@@ -148,7 +150,8 @@ namespace SailawayToNMEA.App
             if (SelectedBoatCancellationTokenSource != null)
             {
                 SelectedBoatCancellationTokenSource.Cancel();
-                nmeaServer.Stop();
+                NmeaServer.Stop();
+                MessageHub.PublishAsync(new BoatDataServiceStatusChanged(Global.Instance, false));
             }
         }
     }

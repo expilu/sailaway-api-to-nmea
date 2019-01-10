@@ -31,11 +31,40 @@ namespace SailawayToNMEA
                 if (!initialDataRetrieved)
                 {
                     initialDataRetrieved = true;
+                    Global.Instance.MessageHub.PublishAsync(new LogMessage(this, "OK!"));
                     textBoxUsername.Invoke(new Action(() =>
                     {
                         textBoxUsername.Enabled = true;
                     }));
                 }
+            });
+
+            Global.Instance.MessageHub.Subscribe<BoatDataServiceStatusChanged>((m) =>
+            {
+                bool started = m.Content;
+
+                if (started) Global.Instance.MessageHub.PublishAsync(new LogMessage(this, "------------------------------------------------------------------"));
+
+                buttonStart.Invoke(new Action(() =>
+                {
+                    string txt = started ? Global.Instance.Texts.GetString("Stop") : Global.Instance.Texts.GetString("Start");
+                    buttonStart.Text = Global.Instance.Texts.GetString(txt);
+                }));
+
+                selectedBoatRefreshStarted = started;
+
+                numericUpDownPort.Invoke(new Action(() =>
+                {
+                    numericUpDownPort.Enabled = !started;
+                }));
+                textBoxUsername.Invoke(new Action(() =>
+                {
+                    textBoxUsername.Enabled = !started;
+                }));
+                comboBoxBoats.Invoke(new Action(() =>
+                {
+                    comboBoxBoats.Enabled = !started;
+                }));
             });
 
             Global.Instance.PropertyChanged += userBoatsChanged;
@@ -88,21 +117,10 @@ namespace SailawayToNMEA
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
-            if(selectedBoatRefreshStarted)
-            {
+            if (selectedBoatRefreshStarted)
                 Global.Instance.StopSelectedBoatDataRefreshTask();
-                buttonStart.Text = Global.Instance.Texts.GetString("Start");
-            } else
-            {
+            else
                 Global.Instance.LaunchSelectedBoatDataRefreshTask();
-                buttonStart.Text = Global.Instance.Texts.GetString("Stop");
-            }
-
-            selectedBoatRefreshStarted = !selectedBoatRefreshStarted;
-
-            numericUpDownPort.Enabled = !selectedBoatRefreshStarted;
-            textBoxUsername.Enabled = !selectedBoatRefreshStarted;
-            comboBoxBoats.Enabled = !selectedBoatRefreshStarted;
         }
 
         private void numericUpDownPort_ValueChanged(object sender, EventArgs e)

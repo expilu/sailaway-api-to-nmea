@@ -106,6 +106,15 @@ namespace SailawayToNMEA.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a NMEA Server Error: .
+        /// </summary>
+        internal static string NMEAServerError {
+            get {
+                return ResourceManager.GetString("NMEAServerError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a NMEA server started in port.
         /// </summary>
         internal static string NMEAServerStarted {
@@ -117,9 +126,9 @@ namespace SailawayToNMEA.Resources {
         /// <summary>
         ///   Busca una cadena traducida similar a NMEA server stopped.
         /// </summary>
-        internal static string NMEAServerStoped {
+        internal static string NMEAServerStopped {
             get {
-                return ResourceManager.GetString("NMEAServerStoped", resourceCulture);
+                return ResourceManager.GetString("NMEAServerStopped", resourceCulture);
             }
         }
         

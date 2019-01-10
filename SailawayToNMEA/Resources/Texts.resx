@@ -132,10 +132,13 @@
   <data name="NMEASent" xml:space="preserve">
     <value>NMEA sent:</value>
   </data>
+  <data name="NMEAServerError" xml:space="preserve">
+    <value>NMEA Server Error: </value>
+  </data>
   <data name="NMEAServerStarted" xml:space="preserve">
     <value>NMEA server started in port</value>
   </data>
-  <data name="NMEAServerStoped" xml:space="preserve">
+  <data name="NMEAServerStopped" xml:space="preserve">
     <value>NMEA server stopped</value>
   </data>
   <data name="RequestRateInformation" xml:space="preserve">
