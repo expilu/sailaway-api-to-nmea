@@ -47,6 +47,7 @@ namespace SailawayToNMEA
         {
             Global.Instance.AllBoatsCancellationTokenSource.Cancel();
             if(Global.Instance.SelectedBoatCancellationTokenSource != null) Global.Instance.SelectedBoatCancellationTokenSource.Cancel();
+            Environment.Exit(Environment.ExitCode);
         }
 
         private void WriteToLog(string txt)
