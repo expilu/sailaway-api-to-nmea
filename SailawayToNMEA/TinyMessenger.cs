@@ -13,65 +13,65 @@
 //===============================================================================
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+***REMOVED***
+***REMOVED***
+***REMOVED***
 
 namespace TinyMessenger
-{
+***REMOVED***
     #region Message Types / Interfaces
     /// <summary>
     /// A TinyMessage to be published/delivered by TinyMessenger
     /// </summary>
     public interface ITinyMessage
-    {
+    ***REMOVED***
         /// <summary>
         /// The sender of the message, or null if not supported by the message implementation.
         /// </summary>
-        object Sender { get; }
-    }
+        object Sender ***REMOVED*** get; ***REMOVED***
+***REMOVED***
 
     /// <summary>
     /// Base class for messages that provides weak refrence storage of the sender
     /// </summary>
     public abstract class TinyMessageBase : ITinyMessage
-    {
+    ***REMOVED***
         /// <summary>
         /// Store a WeakReference to the sender just in case anyone is daft enough to
         /// keep the message around and prevent the sender from being collected.
         /// </summary>
         private WeakReference _Sender;
         public object Sender
-        {
+        ***REMOVED***
             get
-            {
+            ***REMOVED***
                 return (_Sender == null) ? null : _Sender.Target;
-            }
-        }
+        ***REMOVED***
+    ***REMOVED***
 
         /// <summary>
         /// Initializes a new instance of the MessageBase class.
         /// </summary>
         /// <param name="sender">Message sender (usually "this")</param>
         public TinyMessageBase(object sender)
-        {
+        ***REMOVED***
             if (sender == null)
                 throw new ArgumentNullException("sender");
 
             _Sender = new WeakReference(sender);
-        }
-    }
+    ***REMOVED***
+***REMOVED***
 
     /// <summary>
     /// Generic message with user specified content
     /// </summary>
     /// <typeparam name="TContent">Content type to store</typeparam>
     public class GenericTinyMessage<TContent> : TinyMessageBase
-    {
+    ***REMOVED***
         /// <summary>
         /// Contents of the message
         /// </summary>
-        public TContent Content { get; protected set; }
+        public TContent Content ***REMOVED*** get; protected set; ***REMOVED***
 
         /// <summary>
         /// Create a new instance of the GenericTinyMessage class.
@@ -80,26 +80,26 @@ namespace TinyMessenger
         /// <param name="content">Contents of the message</param>
         public GenericTinyMessage(object sender, TContent content)
             : base(sender)
-        {
+        ***REMOVED***
             Content = content;
-        }
-    }
+    ***REMOVED***
+***REMOVED***
 
     /// <summary>
     /// Basic "cancellable" generic message
     /// </summary>
     /// <typeparam name="TContent">Content type to store</typeparam>
     public class CancellableGenericTinyMessage<TContent> : TinyMessageBase
-    {
+    ***REMOVED***
         /// <summary>
         /// Cancel action
         /// </summary>
-        public Action Cancel { get; protected set; }
+        public Action Cancel ***REMOVED*** get; protected set; ***REMOVED***
 
         /// <summary>
         /// Contents of the message
         /// </summary>
-        public TContent Content { get; protected set; }
+        public TContent Content ***REMOVED*** get; protected set; ***REMOVED***
 
         /// <summary>
         /// Create a new instance of the CancellableGenericTinyMessage class.
@@ -109,20 +109,20 @@ namespace TinyMessenger
         /// <param name="cancelAction">Action to call for cancellation</param>
         public CancellableGenericTinyMessage(object sender, TContent content, Action cancelAction)
             : base(sender)
-        {
+        ***REMOVED***
             if (cancelAction == null)
                 throw new ArgumentNullException("cancelAction");
 
             Content = content;
             Cancel = cancelAction;
-        }
-    }
+    ***REMOVED***
+***REMOVED***
 
     /// <summary>
     /// Represents an active subscription to a message
     /// </summary>
     public sealed class TinyMessageSubscriptionToken : IDisposable
-    {
+    ***REMOVED***
         private WeakReference _Hub;
         private Type _MessageType;
 
@@ -130,7 +130,7 @@ namespace TinyMessenger
         /// Initializes a new instance of the TinyMessageSubscriptionToken class.
         /// </summary>
         public TinyMessageSubscriptionToken(ITinyMessengerHub hub, Type messageType)
-        {
+        ***REMOVED***
             if (hub == null)
                 throw new ArgumentNullException("hub");
 
@@ -139,35 +139,35 @@ namespace TinyMessenger
 
             _Hub = new WeakReference(hub);
             _MessageType = messageType;
-        }
+    ***REMOVED***
 
         public void Dispose()
-        {
+        ***REMOVED***
             if (_Hub.IsAlive)
-            {
+            ***REMOVED***
                 var hub = _Hub.Target as ITinyMessengerHub;
 
                 if (hub != null)
-                {
-                    var unsubscribeMethod = typeof(ITinyMessengerHub).GetMethod("Unsubscribe", new Type[] {typeof(TinyMessageSubscriptionToken)});
+                ***REMOVED***
+                    var unsubscribeMethod = typeof(ITinyMessengerHub).GetMethod("Unsubscribe", new Type[] ***REMOVED***typeof(TinyMessageSubscriptionToken)***REMOVED***);
                     unsubscribeMethod = unsubscribeMethod.MakeGenericMethod(_MessageType);
-                    unsubscribeMethod.Invoke(hub, new object[] {this});
-                }
-            }
+                    unsubscribeMethod.Invoke(hub, new object[] ***REMOVED***this***REMOVED***);
+            ***REMOVED***
+        ***REMOVED***
 
             GC.SuppressFinalize(this);
-        }
-    }
+    ***REMOVED***
+***REMOVED***
 
     /// <summary>
     /// Represents a message subscription
     /// </summary>
     public interface ITinyMessageSubscription
-    {
+    ***REMOVED***
         /// <summary>
         /// Token returned to the subscribed to reference this subscription
         /// </summary>
-        TinyMessageSubscriptionToken SubscriptionToken { get; }
+        TinyMessageSubscriptionToken SubscriptionToken ***REMOVED*** get; ***REMOVED***
 
         /// <summary>
         /// Whether delivery should be attempted.
@@ -181,7 +181,7 @@ namespace TinyMessenger
         /// </summary>
         /// <param name="message">Message to deliver</param>
         void Deliver(ITinyMessage message);
-    }
+***REMOVED***
 
     /// <summary>
     /// Message proxy definition.
@@ -190,9 +190,9 @@ namespace TinyMessenger
     /// marshall delivery actions onto a particular thread.
     /// </summary>
     public interface ITinyMessageProxy
-    {
+    ***REMOVED***
         void Deliver(ITinyMessage message, ITinyMessageSubscription subscription);
-    }
+***REMOVED***
 
     /// <summary>
     /// Default "pass through" proxy.
@@ -200,33 +200,33 @@ namespace TinyMessenger
     /// Does nothing other than deliver the message.
     /// </summary>
     public sealed class DefaultTinyMessageProxy : ITinyMessageProxy
-    {
+    ***REMOVED***
         private static readonly DefaultTinyMessageProxy _Instance = new DefaultTinyMessageProxy();
 
         static DefaultTinyMessageProxy()
-        {
-        }
+        ***REMOVED***
+    ***REMOVED***
 
         /// <summary>
         /// Singleton instance of the proxy.
         /// </summary>
         public static DefaultTinyMessageProxy Instance
-        {
+        ***REMOVED***
             get
-            {
+            ***REMOVED***
                 return _Instance;
-            }
-        }
+        ***REMOVED***
+    ***REMOVED***
 
         private DefaultTinyMessageProxy()
-        {
-        }
+        ***REMOVED***
+    ***REMOVED***
 
         public void Deliver(ITinyMessage message, ITinyMessageSubscription subscription)
-        {
+        ***REMOVED***
             subscription.Deliver(message);
-        }
-    }
+    ***REMOVED***
+***REMOVED***
     #endregion
 
     #region Exceptions
@@ -234,21 +234,21 @@ namespace TinyMessenger
     /// Thrown when an exceptions occurs while subscribing to a message type
     /// </summary>
     public class TinyMessengerSubscriptionException : Exception
-    {
-        private const string ERROR_TEXT = "Unable to add subscription for {0} : {1}";
+    ***REMOVED***
+        private const string ERROR_TEXT = "Unable to add subscription for ***REMOVED***0***REMOVED*** : ***REMOVED***1***REMOVED***";
 
         public TinyMessengerSubscriptionException(Type messageType, string reason)
             : base(String.Format(ERROR_TEXT, messageType, reason))
-        {
+        ***REMOVED***
 
-        }
+    ***REMOVED***
 
         public TinyMessengerSubscriptionException(Type messageType, string reason, Exception innerException)
             : base(String.Format(ERROR_TEXT, messageType, reason), innerException)
-        {
+        ***REMOVED***
 
-        }
-    }
+    ***REMOVED***
+***REMOVED***
     #endregion
 
     #region Hub Interface
@@ -256,7 +256,7 @@ namespace TinyMessenger
     /// Messenger hub responsible for taking subscriptions/publications and delivering of messages.
     /// </summary>
     public interface ITinyMessengerHub
-    {
+    ***REMOVED***
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action.
         /// All references are held with WeakReferences
@@ -385,7 +385,7 @@ namespace TinyMessenger
         /// <param name="message">Message to deliver</param>
         /// <param name="callback">AsyncCallback called on completion</param>
         void PublishAsync<TMessage>(TMessage message, AsyncCallback callback) where TMessage : class, ITinyMessage;
-    }
+***REMOVED***
     #endregion
 
     #region Hub Implementation
@@ -393,22 +393,22 @@ namespace TinyMessenger
     /// Messenger hub responsible for taking subscriptions/publications and delivering of messages.
     /// </summary>
     public sealed class TinyMessengerHub : ITinyMessengerHub
-    {
+    ***REMOVED***
         #region Private Types and Interfaces
         private class WeakTinyMessageSubscription<TMessage> : ITinyMessageSubscription
             where TMessage : class, ITinyMessage
-        {
+        ***REMOVED***
             protected TinyMessageSubscriptionToken _SubscriptionToken;
             protected WeakReference _DeliveryAction;
             protected WeakReference _MessageFilter;
 
             public TinyMessageSubscriptionToken SubscriptionToken
-            {
-                get { return _SubscriptionToken; }
-            }
+            ***REMOVED***
+                get ***REMOVED*** return _SubscriptionToken; ***REMOVED***
+        ***REMOVED***
 
             public bool ShouldAttemptDelivery(ITinyMessage message)
-            {
+            ***REMOVED***
                 if (!(message is TMessage))
                     return false;
 
@@ -419,10 +419,10 @@ namespace TinyMessenger
                     return false;
 
                 return ((Func<TMessage, bool>)_MessageFilter.Target).Invoke(message as TMessage);
-            }
+        ***REMOVED***
 
             public void Deliver(ITinyMessage message)
-            {
+            ***REMOVED***
                 if (!(message is TMessage))
                     throw new ArgumentException("Message is not the correct type");
 
@@ -430,7 +430,7 @@ namespace TinyMessenger
                     return;
 
                 ((Action<TMessage>)_DeliveryAction.Target).Invoke(message as TMessage);
-            }
+        ***REMOVED***
 
             /// <summary>
             /// Initializes a new instance of the WeakTinyMessageSubscription class.
@@ -439,7 +439,7 @@ namespace TinyMessenger
             /// <param name="deliveryAction">Delivery action</param>
             /// <param name="messageFilter">Filter function</param>
             public WeakTinyMessageSubscription(TinyMessageSubscriptionToken subscriptionToken, Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter)
-            {
+            ***REMOVED***
                 if (subscriptionToken == null)
                     throw new ArgumentNullException("subscriptionToken");
 
@@ -452,36 +452,36 @@ namespace TinyMessenger
                 _SubscriptionToken = subscriptionToken;
                 _DeliveryAction = new WeakReference(deliveryAction);
                 _MessageFilter = new WeakReference(messageFilter);
-            }
-        }
+        ***REMOVED***
+    ***REMOVED***
 
         private class StrongTinyMessageSubscription<TMessage> : ITinyMessageSubscription
             where TMessage : class, ITinyMessage
-        {
+        ***REMOVED***
             protected TinyMessageSubscriptionToken _SubscriptionToken;
             protected Action<TMessage> _DeliveryAction;
             protected Func<TMessage, bool> _MessageFilter;
 
             public TinyMessageSubscriptionToken SubscriptionToken
-            {
-                get { return _SubscriptionToken; }
-            }
+            ***REMOVED***
+                get ***REMOVED*** return _SubscriptionToken; ***REMOVED***
+        ***REMOVED***
 
             public bool ShouldAttemptDelivery(ITinyMessage message)
-            {
+            ***REMOVED***
                 if (!(message is TMessage))
                     return false;
 
                 return _MessageFilter.Invoke(message as TMessage);
-            }
+        ***REMOVED***
 
             public void Deliver(ITinyMessage message)
-            {
+            ***REMOVED***
                 if (!(message is TMessage))
                     throw new ArgumentException("Message is not the correct type");
 
                 _DeliveryAction.Invoke(message as TMessage);
-            }
+        ***REMOVED***
 
             /// <summary>
             /// Initializes a new instance of the TinyMessageSubscription class.
@@ -490,7 +490,7 @@ namespace TinyMessenger
             /// <param name="deliveryAction">Delivery action</param>
             /// <param name="messageFilter">Filter function</param>
             public StrongTinyMessageSubscription(TinyMessageSubscriptionToken subscriptionToken, Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter)
-            {
+            ***REMOVED***
                 if (subscriptionToken == null)
                     throw new ArgumentNullException("subscriptionToken");
 
@@ -503,22 +503,22 @@ namespace TinyMessenger
                 _SubscriptionToken = subscriptionToken;
                 _DeliveryAction = deliveryAction;
                 _MessageFilter = messageFilter;
-            }
-        }
+        ***REMOVED***
+    ***REMOVED***
         #endregion
 
         #region Subscription dictionary
         private class SubscriptionItem
-        {
-            public ITinyMessageProxy Proxy { get; private set; }
-            public ITinyMessageSubscription Subscription { get; private set; }
+        ***REMOVED***
+            public ITinyMessageProxy Proxy ***REMOVED*** get; private set; ***REMOVED***
+            public ITinyMessageSubscription Subscription ***REMOVED*** get; private set; ***REMOVED***
 
             public SubscriptionItem(ITinyMessageProxy proxy, ITinyMessageSubscription subscription)
-            {
+            ***REMOVED***
                 Proxy = proxy;
                 Subscription = subscription;
-            }
-        }
+        ***REMOVED***
+    ***REMOVED***
 
         private readonly object _SubscriptionsPadlock = new object();
         private readonly Dictionary<Type, List<SubscriptionItem>> _Subscriptions = new Dictionary<Type, List<SubscriptionItem>>();
@@ -535,9 +535,9 @@ namespace TinyMessenger
         /// <param name="deliveryAction">Action to invoke when message is delivered</param>
         /// <returns>TinyMessageSubscription used to unsubscribing</returns>
         public TinyMessageSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction) where TMessage : class, ITinyMessage
-        {
+        ***REMOVED***
             return AddSubscriptionInternal<TMessage>(deliveryAction, (m) => true, true, DefaultTinyMessageProxy.Instance);
-        }
+    ***REMOVED***
 
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action.
@@ -551,9 +551,9 @@ namespace TinyMessenger
         /// <param name="proxy">Proxy to use when delivering the messages</param>
         /// <returns>TinyMessageSubscription used to unsubscribing</returns>
         public TinyMessageSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, ITinyMessageProxy proxy) where TMessage : class, ITinyMessage
-        {
+        ***REMOVED***
             return AddSubscriptionInternal<TMessage>(deliveryAction, (m) => true, true, proxy);
-        }
+    ***REMOVED***
 
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action.
@@ -565,9 +565,9 @@ namespace TinyMessenger
         /// <param name="useStrongReferences">Use strong references to destination and deliveryAction </param>
         /// <returns>TinyMessageSubscription used to unsubscribing</returns>
         public TinyMessageSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, bool useStrongReferences) where TMessage : class, ITinyMessage
-        {
+        ***REMOVED***
             return AddSubscriptionInternal<TMessage>(deliveryAction, (m) => true, useStrongReferences, DefaultTinyMessageProxy.Instance);
-        }
+    ***REMOVED***
 
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action.
@@ -581,9 +581,9 @@ namespace TinyMessenger
         /// <param name="proxy">Proxy to use when delivering the messages</param>
         /// <returns>TinyMessageSubscription used to unsubscribing</returns>
         public TinyMessageSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, bool useStrongReferences, ITinyMessageProxy proxy) where TMessage : class, ITinyMessage
-        {
+        ***REMOVED***
             return AddSubscriptionInternal<TMessage>(deliveryAction, (m) => true, useStrongReferences, proxy);
-        }
+    ***REMOVED***
 
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action with the given filter.
@@ -595,9 +595,9 @@ namespace TinyMessenger
         /// <param name="deliveryAction">Action to invoke when message is delivered</param>
         /// <returns>TinyMessageSubscription used to unsubscribing</returns>
         public TinyMessageSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter) where TMessage : class, ITinyMessage
-        {
+        ***REMOVED***
             return AddSubscriptionInternal<TMessage>(deliveryAction, messageFilter, true, DefaultTinyMessageProxy.Instance);
-        }
+    ***REMOVED***
 
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action with the given filter.
@@ -611,9 +611,9 @@ namespace TinyMessenger
         /// <param name="proxy">Proxy to use when delivering the messages</param>
         /// <returns>TinyMessageSubscription used to unsubscribing</returns>
         public TinyMessageSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter, ITinyMessageProxy proxy) where TMessage : class, ITinyMessage
-        {
+        ***REMOVED***
             return AddSubscriptionInternal<TMessage>(deliveryAction, messageFilter, true, proxy);
-        }
+    ***REMOVED***
 
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action with the given filter.
@@ -626,9 +626,9 @@ namespace TinyMessenger
         /// <param name="useStrongReferences">Use strong references to destination and deliveryAction </param>
         /// <returns>TinyMessageSubscription used to unsubscribing</returns>
         public TinyMessageSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter, bool useStrongReferences) where TMessage : class, ITinyMessage
-        {
+        ***REMOVED***
             return AddSubscriptionInternal<TMessage>(deliveryAction, messageFilter, useStrongReferences, DefaultTinyMessageProxy.Instance);
-        }
+    ***REMOVED***
 
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action with the given filter.
@@ -643,9 +643,9 @@ namespace TinyMessenger
         /// <param name="proxy">Proxy to use when delivering the messages</param>
         /// <returns>TinyMessageSubscription used to unsubscribing</returns>
         public TinyMessageSubscriptionToken Subscribe<TMessage>(Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter, bool useStrongReferences, ITinyMessageProxy proxy) where TMessage : class, ITinyMessage
-        {
+        ***REMOVED***
             return AddSubscriptionInternal<TMessage>(deliveryAction, messageFilter, useStrongReferences, proxy);
-        }
+    ***REMOVED***
 
         /// <summary>
         /// Unsubscribe from a particular message type.
@@ -655,9 +655,9 @@ namespace TinyMessenger
         /// <typeparam name="TMessage">Type of message</typeparam>
         /// <param name="subscriptionToken">Subscription token received from Subscribe</param>
         public void Unsubscribe<TMessage>(TinyMessageSubscriptionToken subscriptionToken) where TMessage : class, ITinyMessage
-        {
+        ***REMOVED***
             RemoveSubscriptionInternal<TMessage>(subscriptionToken);
-        }
+    ***REMOVED***
 
         /// <summary>
         /// Publish a message to any subscribers
@@ -665,9 +665,9 @@ namespace TinyMessenger
         /// <typeparam name="TMessage">Type of message</typeparam>
         /// <param name="message">Message to deliver</param>
         public void Publish<TMessage>(TMessage message) where TMessage : class, ITinyMessage
-        {
+        ***REMOVED***
             PublishInternal<TMessage>(message);
-        }
+    ***REMOVED***
 
         /// <summary>
         /// Publish a message to any subscribers asynchronously
@@ -675,9 +675,9 @@ namespace TinyMessenger
         /// <typeparam name="TMessage">Type of message</typeparam>
         /// <param name="message">Message to deliver</param>
         public void PublishAsync<TMessage>(TMessage message) where TMessage : class, ITinyMessage
-        {
+        ***REMOVED***
             PublishAsyncInternal<TMessage>(message, null);
-        }
+    ***REMOVED***
 
         /// <summary>
         /// Publish a message to any subscribers asynchronously
@@ -686,15 +686,15 @@ namespace TinyMessenger
         /// <param name="message">Message to deliver</param>
         /// <param name="callback">AsyncCallback called on completion</param>
         public void PublishAsync<TMessage>(TMessage message, AsyncCallback callback) where TMessage : class, ITinyMessage
-        {
+        ***REMOVED***
             PublishAsyncInternal<TMessage>(message, callback);
-        }
+    ***REMOVED***
         #endregion
 
         #region Internal Methods
         private TinyMessageSubscriptionToken AddSubscriptionInternal<TMessage>(Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter, bool strongReference, ITinyMessageProxy proxy)
                 where TMessage : class, ITinyMessage
-        {
+        ***REMOVED***
             if (deliveryAction == null)
                 throw new ArgumentNullException("deliveryAction");
 
@@ -705,14 +705,14 @@ namespace TinyMessenger
                 throw new ArgumentNullException("proxy");
 
             lock (_SubscriptionsPadlock)
-            {
+            ***REMOVED***
                 List<SubscriptionItem> currentSubscriptions;
 
                 if (!_Subscriptions.TryGetValue(typeof(TMessage), out currentSubscriptions))
-                {
+                ***REMOVED***
                     currentSubscriptions = new List<SubscriptionItem>();
                     _Subscriptions[typeof(TMessage)] = currentSubscriptions;
-                }
+            ***REMOVED***
 
                 var subscriptionToken = new TinyMessageSubscriptionToken(this, typeof(TMessage));
 
@@ -725,17 +725,17 @@ namespace TinyMessenger
                 currentSubscriptions.Add(new SubscriptionItem(proxy, subscription));
 
                 return subscriptionToken;
-            }
-        }
+        ***REMOVED***
+    ***REMOVED***
 
         private void RemoveSubscriptionInternal<TMessage>(TinyMessageSubscriptionToken subscriptionToken)
                 where TMessage : class, ITinyMessage
-        {
+        ***REMOVED***
             if (subscriptionToken == null)
                 throw new ArgumentNullException("subscriptionToken");
 
             lock (_SubscriptionsPadlock)
-            {
+            ***REMOVED***
                 List<SubscriptionItem> currentSubscriptions;
                 if (!_Subscriptions.TryGetValue(typeof(TMessage), out currentSubscriptions))
                     return;
@@ -745,18 +745,18 @@ namespace TinyMessenger
                                            select sub).ToList();
 
                 currentlySubscribed.ForEach(sub => currentSubscriptions.Remove(sub));
-            }
-        }
+        ***REMOVED***
+    ***REMOVED***
 
         private void PublishInternal<TMessage>(TMessage message)
                 where TMessage : class, ITinyMessage
-        {
+        ***REMOVED***
             if (message == null)
                 throw new ArgumentNullException("message");
 
             List<SubscriptionItem> currentlySubscribed;
             lock (_SubscriptionsPadlock)
-            {
+            ***REMOVED***
                 List<SubscriptionItem> currentSubscriptions;
                 if (!_Subscriptions.TryGetValue(typeof(TMessage), out currentSubscriptions))
                     return;
@@ -764,29 +764,29 @@ namespace TinyMessenger
                 currentlySubscribed = (from sub in currentSubscriptions
                                        where sub.Subscription.ShouldAttemptDelivery(message)
                                        select sub).ToList();
-            }
+        ***REMOVED***
 
             currentlySubscribed.ForEach(sub =>
-            {
+            ***REMOVED***
                 try
-                {
+                ***REMOVED***
                     sub.Proxy.Deliver(message, sub.Subscription);
-                }
+            ***REMOVED***
                 catch (Exception)
-                {
+                ***REMOVED***
                     // Ignore any errors and carry on
                     // TODO - add to a list of erroring subs and remove them?
-                }
-            });
-        }
+            ***REMOVED***
+        ***REMOVED***);
+    ***REMOVED***
 
         private void PublishAsyncInternal<TMessage>(TMessage message, AsyncCallback callback) where TMessage : class, ITinyMessage
-        {
-            Action publishAction = () => { PublishInternal<TMessage>(message); };
+        ***REMOVED***
+            Action publishAction = () => ***REMOVED*** PublishInternal<TMessage>(message); ***REMOVED***;
 
             publishAction.BeginInvoke(callback, null);
-        }
+    ***REMOVED***
         #endregion
-    }
+***REMOVED***
     #endregion
-}
+***REMOVED***

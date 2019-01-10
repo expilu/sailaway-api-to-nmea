@@ -3,17 +3,17 @@ using SailawayToNMEA.API.Response;
 using SailawayToNMEA.App;
 using SailawayToNMEA.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+***REMOVED***
+***REMOVED***
+***REMOVED***
+***REMOVED***
 
 namespace SailawayToNMEA.API
-{
+***REMOVED***
     static class Methods
-    {
+    ***REMOVED***
         public static List<BoatInfo> GetBoats(Nullable<Int64> boatNumber = null)
-        {
+        ***REMOVED***
             RestClient client = new RestClient();
             client.BaseUrl = new Uri(Conf.API_BASE_URL);
             RestRequest request = new RestRequest("TrackAllBoats.pl");
@@ -23,6 +23,6 @@ namespace SailawayToNMEA.API
             IRestResponse<BoatsResponse> response = client.Execute<BoatsResponse>(request);
 
             return response.Data.Boats;
-        }
-    }
-}
+    ***REMOVED***
+***REMOVED***
+***REMOVED***
