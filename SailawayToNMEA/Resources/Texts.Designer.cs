@@ -142,6 +142,15 @@ namespace SailawayToNMEA.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Sailaway conenction problem: .
+        /// </summary>
+        internal static string SailawayConnectionProblem {
+            get {
+                return ResourceManager.GetString("SailawayConnectionProblem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Start.
         /// </summary>
         internal static string Start {

@@ -66,6 +66,7 @@
     <Compile Include="App\Conf.cs" />
     <Compile Include="App\Global.cs" />
     <Compile Include="App\Messages\BoatDataServiceStatusChanged.cs" />
+    <Compile Include="App\Messages\SailawayAPIProblem.cs" />
     <Compile Include="App\Messages\SelectedBoatRefreshed.cs" />
     <Compile Include="App\Messages\LogMessage.cs" />
     <Compile Include="App\Messages\BoatsRefreshed.cs" />
