@@ -86,5 +86,50 @@ namespace SailawayToNMEA.Resources {
                 return ResourceManager.GetString("InitialLoad", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a NMEA sent:.
+        /// </summary>
+        internal static string NMEASent {
+            get {
+                return ResourceManager.GetString("NMEASent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a NMEA server started in port.
+        /// </summary>
+        internal static string NMEAServerStarted {
+            get {
+                return ResourceManager.GetString("NMEAServerStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a NMEA server stopped.
+        /// </summary>
+        internal static string NMEAServerStoped {
+            get {
+                return ResourceManager.GetString("NMEAServerStoped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Start.
+        /// </summary>
+        internal static string Start {
+            get {
+                return ResourceManager.GetString("Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Stop.
+        /// </summary>
+        internal static string Stop {
+            get {
+                return ResourceManager.GetString("Stop", resourceCulture);
+            }
+        }
     }
 }

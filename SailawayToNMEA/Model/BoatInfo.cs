@@ -1,4 +1,5 @@
-﻿using RestSharp.Deserializers;
+﻿using NMEAServerLib;
+using RestSharp.Deserializers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,5 +66,23 @@ namespace SailawayToNMEA.Model
 
         [DeserializeAs(Name = "ubtspeedoverground")]
         public Nullable<double> SpeedOverGround { get; set; }
+
+        public void toInstrumentsData(ref InstrumentsData instrumentsData)
+        {
+            int awa = Convert.ToInt32(ApparentWindAngle);
+            int awa360 = awa < 0 ? awa + 360 : awa;
+            instrumentsData.ApparentWindAngle = awa360;
+            instrumentsData.ApparentWindSpeed = ApparentWindSpeed;
+            instrumentsData.CourseOverGround = Convert.ToInt32(CourseOverGround);
+            instrumentsData.Heading = Convert.ToInt32(Heading);
+            instrumentsData.Lat = Latitude;
+            instrumentsData.Lon = Longitude;
+            instrumentsData.SpeedOverGround = SpeedOverGround;
+            int twa = Convert.ToInt32(TrueWindAngle);
+            int twa360 = twa < 0 ? twa + 360 : twa;
+            instrumentsData.TrueWindAngle = twa360;
+            instrumentsData.TrueWindSpeed = TrueWindSpeed;
+            instrumentsData.WaterSpeed = Speed;
+        }
     }
 }

@@ -38,6 +38,7 @@ namespace SailawayToNMEA
             this.textBoxLog = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxBoats = new System.Windows.Forms.ComboBox();
+            this.buttonStart = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPort)).BeginInit();
             this.SuspendLayout();
             // 
@@ -89,6 +90,7 @@ namespace SailawayToNMEA
             0,
             0,
             0});
+            this.numericUpDownPort.ValueChanged += new System.EventHandler(this.numericUpDownPort_ValueChanged);
             // 
             // textBoxLog
             // 
@@ -114,6 +116,7 @@ namespace SailawayToNMEA
             // 
             // comboBoxBoats
             // 
+            this.comboBoxBoats.DisplayMember = "BoatName";
             this.comboBoxBoats.Enabled = false;
             this.comboBoxBoats.FormattingEnabled = true;
             this.comboBoxBoats.Location = new System.Drawing.Point(102, 79);
@@ -121,13 +124,26 @@ namespace SailawayToNMEA
             this.comboBoxBoats.Size = new System.Drawing.Size(121, 21);
             this.comboBoxBoats.Sorted = true;
             this.comboBoxBoats.TabIndex = 7;
+            this.comboBoxBoats.ValueMember = "BoatNumber";
             this.comboBoxBoats.SelectedIndexChanged += new System.EventHandler(this.comboBoxBoats_SelectedIndexChanged);
+            // 
+            // buttonStart
+            // 
+            this.buttonStart.Enabled = false;
+            this.buttonStart.Location = new System.Drawing.Point(260, 77);
+            this.buttonStart.Name = "buttonStart";
+            this.buttonStart.Size = new System.Drawing.Size(75, 23);
+            this.buttonStart.TabIndex = 8;
+            this.buttonStart.Text = "Start";
+            this.buttonStart.UseVisualStyleBackColor = true;
+            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
             // SailawayToNMEA
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonStart);
             this.Controls.Add(this.comboBoxBoats);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBoxLog);
@@ -155,6 +171,7 @@ namespace SailawayToNMEA
         private System.Windows.Forms.TextBox textBoxLog;
         private Label label3;
         private ComboBox comboBoxBoats;
+        private Button buttonStart;
     }
 }
 

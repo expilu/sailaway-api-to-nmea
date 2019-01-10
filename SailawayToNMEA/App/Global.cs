@@ -1,4 +1,5 @@
-﻿using SailawayToNMEA.API;
+﻿using NMEAServerLib;
+using SailawayToNMEA.API;
 using SailawayToNMEA.App.Messages;
 using SailawayToNMEA.Model;
 using System;
@@ -33,18 +34,38 @@ namespace SailawayToNMEA.App
             MessageHub.Subscribe<SelectedBoatRefreshed>((m) => {
                 Boat = m.Content;
                 MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("BoatDataRefreshed")));
+                Boat.toInstrumentsData(ref boatData);
             });
 
             AllBoatsCancellationTokenSource = new CancellationTokenSource();
-            allBoatsCancellationToken = AllBoatsCancellationTokenSource.Token;
+            allBoatsCancellationToken = AllBoatsCancellationTokenSource.Token;            
 
             Tasks.RefreshAllBoats(allBoatsCancellationToken);
+
+            nmeaServer = new NMEAServer(ref boatData, NmeaTcpPort, Conf.NMEA_SEND_RATE);
+            nmeaServer.OnServerStarted += delegate
+            {
+                MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("NMEAServerStarted") + " " + NmeaTcpPort));
+            };
+            nmeaServer.OnServerStop += delegate
+            {
+                MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("NMEAServerStopped")));
+            };
+            nmeaServer.OnNMEASent += NmeaServer_OnNMEASent;
+        }
+
+        private void NmeaServer_OnNMEASent(string nmea)
+        {
+            MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("NMEASent") + nmea.Replace("$", "\r\n$") + "\r\n"));
         }
 
         public CancellationTokenSource AllBoatsCancellationTokenSource;
         private CancellationToken allBoatsCancellationToken;
-        private CancellationTokenSource selectedBoatCancellationTokenSource;
-        private CancellationToken selectedBoatCancellationToken;
+        public CancellationTokenSource SelectedBoatCancellationTokenSource;
+
+        private NMEAServer nmeaServer;
+        public int NmeaTcpPort = 10110;
+        private InstrumentsData boatData = new InstrumentsData(); 
 
         public List<BoatInfo> AllBoats { get; set; }
 
@@ -75,23 +96,10 @@ namespace SailawayToNMEA.App
                 NotifyPropertyChanged("UserBoats");
             }
         }
+        
+        public Nullable<Int64> SelectedBoatNumber { get; set; }
 
-        private Nullable<Int64> _selectedBoatNumber;
-        public Nullable<Int64> SelectedBoatNumber
-        {
-            get { return _selectedBoatNumber; }
-            set
-            {
-                _selectedBoatNumber = value;
-                relaunchSelectedBoatDataRefreshTask();
-            }
-        }
-
-        public BoatInfo Boat
-        {
-            get;
-            set;
-        }
+        public BoatInfo Boat { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
@@ -103,13 +111,26 @@ namespace SailawayToNMEA.App
             }
         }
 
-        private void relaunchSelectedBoatDataRefreshTask()
+        public void LaunchSelectedBoatDataRefreshTask()
         {
-            if(selectedBoatCancellationTokenSource != null) selectedBoatCancellationTokenSource.Cancel();
-            selectedBoatCancellationTokenSource = new CancellationTokenSource();
-            selectedBoatCancellationToken = AllBoatsCancellationTokenSource.Token;
+            StopSelectedBoatDataRefreshTask();
 
-            Tasks.RefreshSelectedBoat(selectedBoatCancellationToken);
+            if (SelectedBoatNumber != null)
+            {
+                SelectedBoatCancellationTokenSource = new CancellationTokenSource();
+
+                Tasks.RefreshSelectedBoat(SelectedBoatCancellationTokenSource.Token);
+                nmeaServer.Start();
+            }
+        }
+
+        public void StopSelectedBoatDataRefreshTask()
+        {
+            if (SelectedBoatCancellationTokenSource != null)
+            {
+                SelectedBoatCancellationTokenSource.Cancel();
+                nmeaServer.Stop();
+            }
         }
     }
 }
