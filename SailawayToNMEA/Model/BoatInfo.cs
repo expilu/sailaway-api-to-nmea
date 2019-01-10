@@ -1,5 +1,6 @@
 ﻿using NMEAServerLib;
 using RestSharp.Deserializers;
+using SailawayToNMEA.App;
 using System;
 ***REMOVED***
 ***REMOVED***
@@ -72,17 +73,17 @@ namespace SailawayToNMEA.Model
             int awa = Convert.ToInt32(ApparentWindAngle);
             int awa360 = awa < 0 ? awa + 360 : awa;
             instrumentsData.ApparentWindAngle = awa360;
-            instrumentsData.ApparentWindSpeed = ApparentWindSpeed;
+            instrumentsData.ApparentWindSpeed = ApparentWindSpeed * Conf.MS_TO_KNOTS;
             instrumentsData.CourseOverGround = Convert.ToInt32(CourseOverGround);
             instrumentsData.Heading = Convert.ToInt32(Heading);
             instrumentsData.Lat = Latitude;
             instrumentsData.Lon = Longitude;
-            instrumentsData.SpeedOverGround = SpeedOverGround;
+            instrumentsData.SpeedOverGround = SpeedOverGround * Conf.MS_TO_KNOTS;
             int twa = Convert.ToInt32(TrueWindAngle);
             int twa360 = twa < 0 ? twa + 360 : twa;
             instrumentsData.TrueWindAngle = twa360;
-            instrumentsData.TrueWindSpeed = TrueWindSpeed;
-            instrumentsData.WaterSpeed = Speed;
+            instrumentsData.TrueWindSpeed = TrueWindSpeed * Conf.MS_TO_KNOTS;
+            instrumentsData.WaterSpeed = Speed * Conf.MS_TO_KNOTS;
     ***REMOVED***
 ***REMOVED***
 ***REMOVED***

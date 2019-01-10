@@ -39,6 +39,7 @@ namespace SailawayToNMEA
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxBoats = new System.Windows.Forms.ComboBox();
             this.buttonStart = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPort)).BeginInit();
             this.SuspendLayout();
             // 
@@ -138,11 +139,22 @@ namespace SailawayToNMEA
             this.buttonStart.UseVisualStyleBackColor = true;
             this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(208, 50);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(236, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "You need to have been online in the past 7 days";
+            // 
             // SailawayToNMEA
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.buttonStart);
             this.Controls.Add(this.comboBoxBoats);
             this.Controls.Add(this.label3);
@@ -172,6 +184,7 @@ namespace SailawayToNMEA
         private Label label3;
         private ComboBox comboBoxBoats;
         private Button buttonStart;
+        private Label label4;
 ***REMOVED***
 ***REMOVED***
 
