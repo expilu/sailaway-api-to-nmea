@@ -68,6 +68,9 @@ namespace SailawayToNMEA.Model
         [DeserializeAs(Name = "ubtspeedoverground")]
         public Nullable<double> SpeedOverGround { get; set; }
 
+        [DeserializeAs(Name = "depth")]
+        public Nullable<double> Depth { get; set; }
+
         public void toInstrumentsData(ref InstrumentsData instrumentsData)
         {
             int awa = Convert.ToInt32(ApparentWindAngle);
@@ -84,6 +87,8 @@ namespace SailawayToNMEA.Model
             instrumentsData.TrueWindAngle = twa360;
             instrumentsData.TrueWindSpeed = TrueWindSpeed * Conf.MS_TO_KNOTS;
             instrumentsData.WaterSpeed = Speed * Conf.MS_TO_KNOTS;
+            instrumentsData.Depth = Depth;
+            instrumentsData.TransducerDepth = 0;
         }
     }
 }
