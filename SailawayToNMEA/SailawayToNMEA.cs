@@ -121,6 +121,7 @@ namespace SailawayToNMEA
 
         private void buttonLoadBoats_Click(object sender, EventArgs e)
         {
+            if (selectedBoatRefreshStarted) Global.Instance.StopSelectedBoatDataRefreshTask();
             Global.Instance.GetUserBoats();
         }
 
