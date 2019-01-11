@@ -11,15 +11,11 @@ namespace SailawayToNMEA.API
 {
     public static class Tasks
     {
-        public static async Task RefreshAllBoats(CancellationToken cancellationToken)
+        public static async Task GetUserBoats(string userName)
         {
-            await Task.Run(async () =>
+            await Task.Run(() =>
             {
-                while (!cancellationToken.IsCancellationRequested)
-                {
-                    Global.Instance.MessageHub.PublishAsync(new BoatsRefreshed(Global.Instance, Methods.GetBoats()));
-                    await Task.Delay(Conf.REQUEST_RATE, cancellationToken);
-                }
+                Global.Instance.MessageHub.PublishAsync(new UserBoatsRetrieved(Global.Instance, Methods.GetBoats(userName)));
             });
         }
 
@@ -31,7 +27,7 @@ namespace SailawayToNMEA.API
                 {
                     if (Global.Instance.SelectedBoatNumber != null)
                     {
-                        List<BoatInfo> boats = Methods.GetBoats(Global.Instance.SelectedBoatNumber);
+                        List<BoatInfo> boats = Methods.GetBoats(null, Global.Instance.SelectedBoatNumber);
                         if (boats.Count == 1)
                         {
                             Global.Instance.MessageHub.PublishAsync(new SelectedBoatRefreshed(Global.Instance, boats.First()));

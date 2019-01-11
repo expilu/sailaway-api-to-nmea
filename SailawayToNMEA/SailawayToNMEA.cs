@@ -1,5 +1,6 @@
 ﻿using SailawayToNMEA.App;
 using SailawayToNMEA.App.Messages;
+using SailawayToNMEA.Model;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -8,7 +9,6 @@ namespace SailawayToNMEA
 {
     public partial class SailawayToNMEA : Form
     {
-        private bool initialDataRetrieved = false;
         private bool selectedBoatRefreshStarted = false;
 
         public SailawayToNMEA()
@@ -22,16 +22,8 @@ namespace SailawayToNMEA
                 WriteToLog(m.Content);
             });
 
-            Global.Instance.MessageHub.Subscribe<BoatsRefreshed>((m) => {
-                if (!initialDataRetrieved)
-                {
-                    initialDataRetrieved = true;
-                    Global.Instance.MessageHub.PublishAsync(new LogMessage(this, "OK!"));
-                    textBoxUsername.Invoke(new Action(() =>
-                    {
-                        textBoxUsername.Enabled = true;
-                    }));
-                }
+            Global.Instance.MessageHub.Subscribe<UserBoatsRetrieved>((m) => {
+                ShowUserBoats();
             });
 
             Global.Instance.MessageHub.Subscribe<BoatDataServiceStatusChanged>((m) =>
@@ -44,6 +36,11 @@ namespace SailawayToNMEA
                 {
                     string txt = started ? Global.Instance.Texts.GetString("Stop") : Global.Instance.Texts.GetString("Start");
                     buttonStart.Text = Global.Instance.Texts.GetString(txt);
+                }));
+
+                buttonLoadBoats.Invoke(new Action(() =>
+                {
+                    buttonLoadBoats.Enabled = !started;
                 }));
 
                 selectedBoatRefreshStarted = started;
@@ -61,15 +58,10 @@ namespace SailawayToNMEA
                     comboBoxBoats.Enabled = !started;
                 }));
             });
-
-            Global.Instance.PropertyChanged += userBoatsChanged;
-
-            WriteToLog(Global.Instance.Texts.GetString("InitialLoad"));
         }
 
         private void SailawayToNMEA_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Global.Instance.AllBoatsCancellationTokenSource.Cancel();
             if(Global.Instance.SelectedBoatCancellationTokenSource != null) Global.Instance.SelectedBoatCancellationTokenSource.Cancel();
             Environment.Exit(Environment.ExitCode);
         }
@@ -84,30 +76,34 @@ namespace SailawayToNMEA
         private void textBoxUsername_TextChanged(object sender, EventArgs e)
         {
             Global.Instance.UserName = textBoxUsername.Text;
-        }
 
-        private void userBoatsChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if(e.PropertyName == "UserBoats")
-            {
-                ShowUserBoats();
-            }
+            buttonLoadBoats.Enabled = Global.Instance.UserName != null && Global.Instance.UserName.Length > 0;
         }
 
         private void ShowUserBoats()
         {
-            comboBoxBoats.DataSource = Global.Instance.UserBoats;
-            comboBoxBoats.DisplayMember = "BoatName";
-            comboBoxBoats.ValueMember = "BoatNumber";
-            bool hasBoats = Global.Instance.UserBoats.Count > 0;
-            comboBoxBoats.Enabled = hasBoats;
-            buttonStart.Enabled = hasBoats;
+            bool hasBoats = Global.Instance.UserBoats != null && Global.Instance.UserBoats.Count > 0;
+
+            comboBoxBoats.Invoke(new Action(() =>
+            {
+                comboBoxBoats.DataSource = Global.Instance.UserBoats;
+                comboBoxBoats.DisplayMember = "BoatName";
+                comboBoxBoats.ValueMember = "BoatNumber";
+                comboBoxBoats.Enabled = hasBoats;
+            }));
+
+            buttonStart.Invoke(new Action(() =>
+            {
+                buttonStart.Enabled = hasBoats;
+            }));
+
+            
             if(!hasBoats) Global.Instance.SelectedBoatNumber = null;
         }
 
         private void comboBoxBoats_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Global.Instance.SelectedBoatNumber = (Int64) comboBoxBoats.SelectedValue;
+            Global.Instance.SelectedBoatNumber = ((BoatInfo) comboBoxBoats.SelectedItem).BoatNumber;
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -121,6 +117,27 @@ namespace SailawayToNMEA
         private void numericUpDownPort_ValueChanged(object sender, EventArgs e)
         {
             Global.Instance.NmeaTcpPort = Convert.ToInt32(numericUpDownPort.Value);
+        }
+
+        private void buttonLoadBoats_Click(object sender, EventArgs e)
+        {
+            Global.Instance.GetUserBoats();
+        }
+
+        private void textBoxUsername_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonLoadBoats_Click(this, new EventArgs());
+            }
+        }
+
+        private void comboBoxBoats_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonStart_Click(this, new EventArgs());
+            }
         }
     }
 }

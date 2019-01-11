@@ -12,7 +12,7 @@ using TinyMessenger;
 
 namespace SailawayToNMEA.App
 {
-    public sealed class Global : INotifyPropertyChanged
+    public sealed class Global
     {
         private static readonly Lazy<Global> lazy = new Lazy<Global>(() => new Global());
 
@@ -24,26 +24,21 @@ namespace SailawayToNMEA.App
 
             Texts = new ResXResourceSet(@".\Resources\Texts.resx");
 
-            MessageHub.Subscribe<BoatsRefreshed>((m) => {
-                AllBoats = m.Content;
-#if DEBUG
-                MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("BoatsRefreshed")));
+            MessageHub.Subscribe<UserBoatsRetrieved>((m) => {
+                UserBoats = m.Content;
+#if DEBUG                
+                MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("UserBoatsRetrieved")));
 #endif
             });
 
             MessageHub.Subscribe<SelectedBoatRefreshed>((m) => {
                 Boat = m.Content;
-                MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("BoatDataRefreshed") + " - " + DateTime.Now.ToString("hh:mm:ss")));
+                MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("BoatDataRefreshed") + " - " + Boat.UserName + "'s " + Boat.BoatName + " - " + DateTime.Now.ToString("hh:mm:ss")));
                 Boat.toInstrumentsData(ref boatData);
                 NmeaServer.SendData();
             });
 
-            AllBoatsCancellationTokenSource = new CancellationTokenSource();
-            allBoatsCancellationToken = AllBoatsCancellationTokenSource.Token;            
-
-            Tasks.RefreshAllBoats(allBoatsCancellationToken);
-
-            NmeaServer = new NMEAServer(ref boatData, NmeaTcpPort, 60000);
+            NmeaServer = new NMEAServer(ref boatData, NmeaTcpPort);
             NmeaServer.OnServerStarted += delegate
             {
                 MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("NMEAServerStarted") + " " + NmeaTcpPort));
@@ -74,56 +69,37 @@ namespace SailawayToNMEA.App
             MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("NMEASent") + nmea.Replace("$", "\r\n$")));
         }
 
-        public CancellationTokenSource AllBoatsCancellationTokenSource;
-        private CancellationToken allBoatsCancellationToken;
         public CancellationTokenSource SelectedBoatCancellationTokenSource;
 
         public NMEAServer NmeaServer;
         public int NmeaTcpPort = 10110;
         private InstrumentsData boatData = new InstrumentsData(); 
 
-        public List<BoatInfo> AllBoats { get; set; }
-
-        public List<BoatInfo> UserBoats
-        {
-            get
-            {
-                return AllBoats.Where(o => o.UserName == UserName).ToList();
-            }
-        }
+        public List<BoatInfo> UserBoats { get; set; }
 
         public TinyMessengerHub MessageHub { get; }
 
         public ResXResourceSet Texts { get; }
 
-        private string _userName;
-        public string UserName
-        {
-            get
-            {
-                return _userName;
-            }
-
-            set
-            {
-                _userName = value;
-                NotifyPropertyChanged("UserName");
-                NotifyPropertyChanged("UserBoats");
-            }
-        }
+        public string UserName { get; set; }
         
         public Nullable<Int64> SelectedBoatNumber { get; set; }
 
-        public BoatInfo Boat { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String propertyName)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (null != handler)
+        private BoatInfo _boat;
+        public BoatInfo Boat {
+            get
             {
-                handler(this, new PropertyChangedEventArgs(propertyName));
+                return _boat;
             }
+            set
+            {
+                _boat = value;
+            }
+        }
+
+        public void GetUserBoats()
+        {
+            Tasks.GetUserBoats(UserName);
         }
 
         public void LaunchSelectedBoatDataRefreshTask()
