@@ -43,7 +43,7 @@ namespace SailawayToNMEA.App
 
             Tasks.RefreshAllBoats(allBoatsCancellationToken);
 
-            NmeaServer = new NMEAServer(ref boatData, NmeaTcpPort);
+            NmeaServer = new NMEAServer(ref boatData, NmeaTcpPort, 60000);
             NmeaServer.OnServerStarted += delegate
             {
                 MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("NMEAServerStarted") + " " + NmeaTcpPort));
