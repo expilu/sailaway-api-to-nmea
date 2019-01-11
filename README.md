@@ -14,3 +14,6 @@ Boat data is refreshed every 10 minutes. This is to avoid overloading the Sailaw
 3. Enter your username (exactly!) and then pick one of your boats. The boats will only appear if you have been online in the game in the past 7 days.
 4. Click Start
 5. Once the server is started you can connect to its address with the chosen TCP port from your hardware or software (qtVlm, OpenCPN,...). The address is usually 127.0.0.1 if you run both softwares in the same computer.
+
+
+Take a look at the [WIKI](https://github.com/expilu/sailaway-api-to-nmea/wiki)!
