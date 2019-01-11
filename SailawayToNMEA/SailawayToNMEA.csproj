@@ -69,7 +69,7 @@
     <Compile Include="App\Messages\SailawayAPIProblem.cs" />
     <Compile Include="App\Messages\SelectedBoatRefreshed.cs" />
     <Compile Include="App\Messages\LogMessage.cs" />
-    <Compile Include="App\Messages\BoatsRefreshed.cs" />
+    <Compile Include="App\Messages\UserBoatsRetrieved.cs" />
     <Compile Include="Model\BoatInfo.cs" />
     <Compile Include="API\Response\BoatsResponse.cs" />
     <Compile Include="SailawayToNMEA.cs">

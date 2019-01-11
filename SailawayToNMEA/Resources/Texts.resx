@@ -120,14 +120,8 @@
   <data name="BoatDataRefreshed" xml:space="preserve">
     <value>Selected boat data refreshed from Sailaway server</value>
   </data>
-  <data name="BoatsRefreshed" xml:space="preserve">
-    <value>All boats data refreshed from Sailaway server</value>
-  </data>
   <data name="ClientConnected" xml:space="preserve">
     <value>Client connected from </value>
-  </data>
-  <data name="InitialLoad" xml:space="preserve">
-    <value>Retrieving initial data from Sailaway server...</value>
   </data>
   <data name="NMEASent" xml:space="preserve">
     <value>NMEA sent:</value>
@@ -152,5 +146,8 @@
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Stop</value>
+  </data>
+  <data name="UserBoatsRetrieved" xml:space="preserve">
+    <value>User boats data retrieved from Sailaway server</value>
   </data>
 </root>

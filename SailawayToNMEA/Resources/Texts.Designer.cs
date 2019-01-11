@@ -70,29 +70,11 @@ namespace SailawayToNMEA.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a All boats data refreshed from Sailaway server.
-        /// </summary>
-        internal static string BoatsRefreshed {
-            get {
-                return ResourceManager.GetString("BoatsRefreshed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Busca una cadena traducida similar a Client connected from .
         /// </summary>
         internal static string ClientConnected {
             get {
                 return ResourceManager.GetString("ClientConnected", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Retrieving initial data from Sailaway server....
-        /// </summary>
-        internal static string InitialLoad {
-            get {
-                return ResourceManager.GetString("InitialLoad", resourceCulture);
             }
         }
         
@@ -165,6 +147,15 @@ namespace SailawayToNMEA.Resources {
         internal static string Stop {
             get {
                 return ResourceManager.GetString("Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a User boats data retrieved from Sailaway server.
+        /// </summary>
+        internal static string UserBoatsRetrieved {
+            get {
+                return ResourceManager.GetString("UserBoatsRetrieved", resourceCulture);
             }
         }
     }
