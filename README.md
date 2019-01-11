@@ -16,4 +16,6 @@ Boat data is refreshed every 10 minutes. This is to avoid overloading the Sailaw
 5. Once the server is started you can connect to its address with the chosen TCP port from your hardware or software (qtVlm, OpenCPN,...). The address is usually 127.0.0.1 if you run both softwares in the same computer.
 
 
+
+
 Take a look at the [WIKI](https://github.com/expilu/sailaway-api-to-nmea/wiki)!
