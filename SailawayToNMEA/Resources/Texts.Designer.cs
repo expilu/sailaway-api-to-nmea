@@ -70,11 +70,29 @@ namespace SailawayToNMEA.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Selected boat data refreshed by dead reckoning (estimated position).
+        /// </summary>
+        internal static string BoatDataRefreshedDeadReckoning {
+            get {
+                return ResourceManager.GetString("BoatDataRefreshedDeadReckoning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Client connected from .
         /// </summary>
         internal static string ClientConnected {
             get {
                 return ResourceManager.GetString("ClientConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Estimates your new position each minute based on speed and heading.
+        /// </summary>
+        internal static string DeadReckoningExplanation {
+            get {
+                return ResourceManager.GetString("DeadReckoningExplanation", resourceCulture);
             }
         }
         

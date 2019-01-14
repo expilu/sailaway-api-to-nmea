@@ -30,7 +30,7 @@ namespace SailawayToNMEA
             {
                 bool started = m.Content;
 
-                if (started) Global.Instance.MessageHub.PublishAsync(new LogMessage(this, "------------------------------------------------------------------"));
+                if (started) Global.Instance.MessageHub.PublishAsync(new LogMessage(this, new LogText("------------------------------------------------------------------")));
 
                 buttonStart.Invoke(new Action(() =>
                 {
@@ -58,6 +58,12 @@ namespace SailawayToNMEA
                     comboBoxBoats.Enabled = !started;
                 }));
             });
+
+            ToolTip deadReckoningTooltip = new ToolTip();
+            deadReckoningTooltip.AutoPopDelay = 5000;
+            deadReckoningTooltip.InitialDelay = 500;
+            deadReckoningTooltip.ShowAlways = true;
+            deadReckoningTooltip.SetToolTip(checkBoxDeadReckoning, Global.Instance.Texts.GetString("DeadReckoningExplanation"));
         }
 
         private void SailawayToNMEA_FormClosing(object sender, FormClosingEventArgs e)
@@ -66,10 +72,15 @@ namespace SailawayToNMEA
             Environment.Exit(Environment.ExitCode);
         }
 
-        private void WriteToLog(string txt)
+        private void WriteToLog(LogText logText)
         {
-            textBoxLog.Invoke(new Action(() => {
-                textBoxLog.AppendText(txt + Environment.NewLine + Environment.NewLine);
+            richTextBoxLog.Invoke(new Action(() => {
+                
+                richTextBoxLog.SelectionStart = richTextBoxLog.Text.Length;
+                richTextBoxLog.SelectionLength = 0;
+                richTextBoxLog.SelectionColor = logText.Color;
+                richTextBoxLog.AppendText(logText.Txt + Environment.NewLine);
+                richTextBoxLog.SelectionColor = richTextBoxLog.ForeColor;
             }));
         }
 
@@ -139,6 +150,11 @@ namespace SailawayToNMEA
             {
                 buttonStart_Click(this, new EventArgs());
             }
+        }
+
+        private void checkBoxDeadReckoning_CheckedChanged(object sender, EventArgs e)
+        {
+            DeadReckoning.Active = checkBoxDeadReckoning.Checked;
         }
     }
 }

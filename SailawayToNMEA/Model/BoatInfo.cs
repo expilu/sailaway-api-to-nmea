@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static NMEAServerLib.InstrumentsData;
 
 namespace SailawayToNMEA.Model
 {
@@ -71,6 +72,10 @@ namespace SailawayToNMEA.Model
         [DeserializeAs(Name = "depth")]
         public Nullable<double> Depth { get; set; }
 
+        public Nullable<FixQualityType> FixQuality { get; set; }
+
+        public DateTime FixTime { get; set; }
+
         public void toInstrumentsData(ref InstrumentsData instrumentsData)
         {
             int awa = Convert.ToInt32(ApparentWindAngle);
@@ -89,6 +94,7 @@ namespace SailawayToNMEA.Model
             instrumentsData.WaterSpeed = Speed * Conf.MS_TO_KNOTS;
             instrumentsData.Depth = Depth;
             instrumentsData.TransducerDepth = 0;
+            instrumentsData.FixQuality = FixQuality;
         }
     }
 }

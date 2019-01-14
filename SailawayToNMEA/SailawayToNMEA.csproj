@@ -64,6 +64,7 @@
     <Compile Include="API\Methods.cs" />
     <Compile Include="API\Tasks.cs" />
     <Compile Include="App\Conf.cs" />
+    <Compile Include="App\DeadReckoning.cs" />
     <Compile Include="App\Global.cs" />
     <Compile Include="App\Messages\BoatDataServiceStatusChanged.cs" />
     <Compile Include="App\Messages\SailawayAPIProblem.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="App\Messages\UserBoatsRetrieved.cs" />
     <Compile Include="Model\BoatInfo.cs" />
     <Compile Include="API\Response\BoatsResponse.cs" />
+    <Compile Include="Model\LogText.cs" />
     <Compile Include="SailawayToNMEA.cs">
       <SubType>Form</SubType>
     </Compile>

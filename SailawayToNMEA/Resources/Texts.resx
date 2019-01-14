@@ -120,8 +120,14 @@
   <data name="BoatDataRefreshed" xml:space="preserve">
     <value>Selected boat data refreshed from Sailaway server</value>
   </data>
+  <data name="BoatDataRefreshedDeadReckoning" xml:space="preserve">
+    <value>Selected boat data refreshed by dead reckoning (estimated position)</value>
+  </data>
   <data name="ClientConnected" xml:space="preserve">
     <value>Client connected from </value>
+  </data>
+  <data name="DeadReckoningExplanation" xml:space="preserve">
+    <value>Estimates your new position each minute based on speed and heading</value>
   </data>
   <data name="NMEASent" xml:space="preserve">
     <value>NMEA sent:</value>

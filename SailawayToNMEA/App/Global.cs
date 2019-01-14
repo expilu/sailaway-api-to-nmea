@@ -5,6 +5,7 @@ using SailawayToNMEA.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Resources;
 using System.Threading;
@@ -27,13 +28,20 @@ namespace SailawayToNMEA.App
             MessageHub.Subscribe<UserBoatsRetrieved>((m) => {
                 UserBoats = m.Content;
 #if DEBUG                
-                MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("UserBoatsRetrieved")));
+                MessageHub.PublishAsync(new LogMessage(this, new LogText(Texts.GetString("UserBoatsRetrieved"))));
 #endif
             });
 
             MessageHub.Subscribe<SelectedBoatRefreshed>((m) => {
                 Boat = m.Content;
-                MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("BoatDataRefreshed") + " - " + Boat.UserName + "'s " + Boat.BoatName + " - " + DateTime.Now.ToString("hh:mm:ss")));
+                Boat.FixTime = DateTime.Now;
+                if(Boat.FixQuality == InstrumentsData.FixQualityType.ESTIMATED_DEAD_RECKONING)
+                {
+                    MessageHub.PublishAsync(new LogMessage(this, new LogText($"{Texts.GetString("BoatDataRefreshedDeadReckoning")} - {Boat.UserName}'s {Boat.BoatName} - {DateTime.Now.ToString("hh:mm:ss")}", Color.Goldenrod)));
+                } else
+                {
+                    MessageHub.PublishAsync(new LogMessage(this, new LogText($"{Texts.GetString("BoatDataRefreshed")} - {Boat.UserName}'s {Boat.BoatName} - {DateTime.Now.ToString("hh:mm:ss")}", Color.DarkGreen)));
+                }
                 Boat.toInstrumentsData(ref boatData);
                 NmeaServer.SendData();
             });
@@ -41,32 +49,35 @@ namespace SailawayToNMEA.App
             NmeaServer = new NMEAServer(ref boatData, NmeaTcpPort);
             NmeaServer.OnServerStarted += delegate
             {
-                MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("NMEAServerStarted") + " " + NmeaTcpPort));
+                MessageHub.PublishAsync(new LogMessage(this, new LogText($"{Texts.GetString("NMEAServerStarted")} {NmeaTcpPort}")));
             };
             NmeaServer.OnServerStop += delegate
             {
-                MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("NMEAServerStopped")));
+                MessageHub.PublishAsync(new LogMessage(this, new LogText(Texts.GetString("NMEAServerStopped"))));
             };
             NmeaServer.OnNMEASent += NmeaServer_OnNMEASent;
             NmeaServer.OnServerError += NmeaServer_OnServerError;
             NmeaServer.OnClientConnected += NmeaServer_OnClientConnected;
+
+            DeadReckoning.Active = true;
+            DeadReckoning.StartDeadReckoningTask();
         }
 
         private void NmeaServer_OnClientConnected(string address)
         {
-            MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("ClientConnected") + address));
+            MessageHub.PublishAsync(new LogMessage(this, new LogText($"{Texts.GetString("ClientConnected")}{address}")));
             NmeaServer.SendData();
         }
 
         private void NmeaServer_OnServerError(Exception exception)
         {   
-            MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("NMEAServerError") + exception.Message + "\r\n"));
+            MessageHub.PublishAsync(new LogMessage(this, new LogText($"{Texts.GetString("NMEAServerError")}{exception.Message}\r\n", Color.Red)));
             StopSelectedBoatDataRefreshTask();
         }
 
         private void NmeaServer_OnNMEASent(string nmea)
         {
-            MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("NMEASent") + nmea.Replace("$", "\r\n$")));
+            MessageHub.PublishAsync(new LogMessage(this, new LogText($"{Texts.GetString("NMEASent")} {Environment.NewLine}{nmea}", Color.Gray)));
         }
 
         public CancellationTokenSource SelectedBoatCancellationTokenSource;
@@ -114,7 +125,7 @@ namespace SailawayToNMEA.App
                 NmeaServer.Start();
                 TimeSpan t = TimeSpan.FromMilliseconds(Conf.REQUEST_RATE);
                 string humanReadableRate = string.Format("{0:D2}h:{1:D2}m:{2:D2}s:{3:D3}ms", t.Hours, t.Minutes, t.Seconds, t.Milliseconds);
-                MessageHub.PublishAsync(new LogMessage(this, Texts.GetString("RequestRateInformation") + humanReadableRate));
+                MessageHub.PublishAsync(new LogMessage(this, new LogText($"{Texts.GetString("RequestRateInformation")}{humanReadableRate}")));
                 MessageHub.PublishAsync(new BoatDataServiceStatusChanged(Global.Instance, true));
             }
         }

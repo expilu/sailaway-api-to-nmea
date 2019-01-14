@@ -5,6 +5,7 @@ using SailawayToNMEA.App.Messages;
 using SailawayToNMEA.Model;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace SailawayToNMEA.API
 {
@@ -26,14 +27,14 @@ namespace SailawayToNMEA.API
 
                 if(response.Data == null)
                 {
-                    Global.Instance.MessageHub.PublishAsync(new LogMessage(Global.Instance, Global.Instance.Texts.GetString("SailawayConnectionProblem") + response.Content + "\r\nCheck if your API key is set correctly"));
+                    Global.Instance.MessageHub.PublishAsync(new LogMessage(Global.Instance, new LogText($"{Global.Instance.Texts.GetString("SailawayConnectionProblem")}{response.Content}\r\nCheck if your API key is set correctly", Color.Red)));
                 } else
                 {
                     boatInfos = response.Data.Boats;
                 }
             } catch (Exception e)
             {
-                Global.Instance.MessageHub.PublishAsync(new LogMessage(Global.Instance, Global.Instance.Texts.GetString("SailawayConnectionProblem") + e.Message));
+                Global.Instance.MessageHub.PublishAsync(new LogMessage(Global.Instance, new LogText($"{Global.Instance.Texts.GetString("SailawayConnectionProblem")}{e.Message}", Color.Red)));
             }
 
             return boatInfos;

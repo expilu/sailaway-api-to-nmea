@@ -1,10 +1,11 @@
-﻿using TinyMessenger;
+﻿using SailawayToNMEA.Model;
+using TinyMessenger;
 
 namespace SailawayToNMEA.App.Messages
 {
-    public class LogMessage : GenericTinyMessage<string>
+    public class LogMessage : GenericTinyMessage<LogText>
     {
-        public LogMessage(object sender, string message) : base(sender, message)
+        public LogMessage(object sender, LogText logText) : base(sender, logText)
         {
         }
     }

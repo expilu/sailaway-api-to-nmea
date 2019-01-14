@@ -36,12 +36,13 @@ namespace SailawayToNMEA
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxUsername = new System.Windows.Forms.TextBox();
             this.numericUpDownPort = new System.Windows.Forms.NumericUpDown();
-            this.textBoxLog = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxBoats = new System.Windows.Forms.ComboBox();
             this.buttonStart = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.buttonLoadBoats = new System.Windows.Forms.Button();
+            this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
+            this.checkBoxDeadReckoning = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPort)).BeginInit();
             this.SuspendLayout();
             // 
@@ -94,19 +95,6 @@ namespace SailawayToNMEA
             0,
             0});
             this.numericUpDownPort.ValueChanged += new System.EventHandler(this.numericUpDownPort_ValueChanged);
-            // 
-            // textBoxLog
-            // 
-            this.textBoxLog.AcceptsReturn = true;
-            this.textBoxLog.AcceptsTab = true;
-            this.textBoxLog.CausesValidation = false;
-            this.textBoxLog.Location = new System.Drawing.Point(12, 129);
-            this.textBoxLog.Multiline = true;
-            this.textBoxLog.Name = "textBoxLog";
-            this.textBoxLog.ReadOnly = true;
-            this.textBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxLog.Size = new System.Drawing.Size(776, 309);
-            this.textBoxLog.TabIndex = 5;
             // 
             // label3
             // 
@@ -163,17 +151,41 @@ namespace SailawayToNMEA
             this.buttonLoadBoats.UseVisualStyleBackColor = true;
             this.buttonLoadBoats.Click += new System.EventHandler(this.buttonLoadBoats_Click);
             // 
+            // richTextBoxLog
+            // 
+            this.richTextBoxLog.Location = new System.Drawing.Point(12, 106);
+            this.richTextBoxLog.Name = "richTextBoxLog";
+            this.richTextBoxLog.ReadOnly = true;
+            this.richTextBoxLog.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.richTextBoxLog.Size = new System.Drawing.Size(776, 389);
+            this.richTextBoxLog.TabIndex = 10;
+            this.richTextBoxLog.Text = "";
+            // 
+            // checkBoxDeadReckoning
+            // 
+            this.checkBoxDeadReckoning.AutoSize = true;
+            this.checkBoxDeadReckoning.Checked = true;
+            this.checkBoxDeadReckoning.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxDeadReckoning.Location = new System.Drawing.Point(310, 81);
+            this.checkBoxDeadReckoning.Name = "checkBoxDeadReckoning";
+            this.checkBoxDeadReckoning.Size = new System.Drawing.Size(142, 17);
+            this.checkBoxDeadReckoning.TabIndex = 11;
+            this.checkBoxDeadReckoning.Text = "Activate dead reckoning";
+            this.checkBoxDeadReckoning.UseVisualStyleBackColor = true;
+            this.checkBoxDeadReckoning.CheckedChanged += new System.EventHandler(this.checkBoxDeadReckoning_CheckedChanged);
+            // 
             // SailawayToNMEA
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 507);
+            this.Controls.Add(this.checkBoxDeadReckoning);
+            this.Controls.Add(this.richTextBoxLog);
             this.Controls.Add(this.buttonLoadBoats);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.buttonStart);
             this.Controls.Add(this.comboBoxBoats);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBoxLog);
             this.Controls.Add(this.numericUpDownPort);
             this.Controls.Add(this.textBoxUsername);
             this.Controls.Add(this.label2);
@@ -196,12 +208,13 @@ namespace SailawayToNMEA
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxUsername;
         private System.Windows.Forms.NumericUpDown numericUpDownPort;
-        private System.Windows.Forms.TextBox textBoxLog;
         private Label label3;
         private ComboBox comboBoxBoats;
         private Button buttonStart;
         private Label label4;
         private Button buttonLoadBoats;
+        private RichTextBox richTextBoxLog;
+        private CheckBox checkBoxDeadReckoning;
     }
 }
 

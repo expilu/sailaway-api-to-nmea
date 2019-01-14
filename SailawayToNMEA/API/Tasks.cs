@@ -30,6 +30,8 @@ namespace SailawayToNMEA.API
                         List<BoatInfo> boats = Methods.GetBoats(null, Global.Instance.SelectedBoatNumber);
                         if (boats.Count == 1)
                         {
+                            BoatInfo boat = boats.First();
+                            boat.FixQuality = NMEAServerLib.InstrumentsData.FixQualityType.GPS;
                             Global.Instance.MessageHub.PublishAsync(new SelectedBoatRefreshed(Global.Instance, boats.First()));
                         }
                     }
