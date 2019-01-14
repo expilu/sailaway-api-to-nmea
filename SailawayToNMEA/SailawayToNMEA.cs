@@ -81,6 +81,8 @@ namespace SailawayToNMEA
                 richTextBoxLog.SelectionColor = logText.Color;
                 richTextBoxLog.AppendText(logText.Txt + Environment.NewLine);
                 richTextBoxLog.SelectionColor = richTextBoxLog.ForeColor;
+                richTextBoxLog.SelectionStart = richTextBoxLog.Text.Length;
+                richTextBoxLog.ScrollToCaret();
             }));
         }
 
