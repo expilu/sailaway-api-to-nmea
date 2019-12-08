@@ -1,4 +1,5 @@
-﻿using SailawayToNMEA.App;
+﻿using Ookii.CommandLine;
+using SailawayToNMEA.App;
 using SailawayToNMEA.App.Messages;
 using SailawayToNMEA.Model;
 using System;
@@ -10,14 +11,32 @@ namespace SailawayToNMEA
     public partial class SailawayToNMEA : Form
     {
         private bool selectedBoatRefreshStarted = false;
+        public MyArguments arguments;
 
-        public SailawayToNMEA()
+        public SailawayToNMEA(string[] args)
         {
             InitializeComponent();
+            CommandLineParser parser = new CommandLineParser(typeof(MyArguments));
+            try
+            {
+                arguments = (MyArguments)parser.Parse(args);
+            }
+            catch (CommandLineArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+                parser.WriteUsageToConsole();
+            }
         }
 
         private void SailawayToNMEA_Load(object sender, EventArgs e)
         {
+            if (arguments.username != "") 
+                textBoxUsername.Text = arguments.username;
+                if (selectedBoatRefreshStarted) Global.Instance.StopSelectedBoatDataRefreshTask();
+                Global.Instance.GetUserBoats();
+
+            if (arguments.boatname != "") comboBoxBoats.Text = arguments.boatname;
+
             Global.Instance.MessageHub.Subscribe<LogMessage>((m) => {
                 WriteToLog(m.Content);
             });
@@ -103,15 +122,29 @@ namespace SailawayToNMEA
                 comboBoxBoats.DisplayMember = "BoatName";
                 comboBoxBoats.ValueMember = "BoatNumber";
                 comboBoxBoats.Enabled = hasBoats;
+                if (arguments.boatname != "")
+                    try
+                    {
+                        int index = comboBoxBoats.FindString("Dehumanizer");
+                        comboBoxBoats.SelectedIndex = index;
+                    }
+                    catch (Exception ex)
+                    {
+                        richTextBoxLog.Text = ex.Message;
+                    }
             }));
 
             buttonStart.Invoke(new Action(() =>
             {
                 buttonStart.Enabled = hasBoats;
+                if (arguments.autostart)
+                    if (selectedBoatRefreshStarted)
+                        Global.Instance.StopSelectedBoatDataRefreshTask();
+                    else
+                        Global.Instance.LaunchSelectedBoatDataRefreshTask();
             }));
 
-            
-            if(!hasBoats) Global.Instance.SelectedBoatNumber = null;
+            if (!hasBoats) Global.Instance.SelectedBoatNumber = null;
         }
 
         private void comboBoxBoats_SelectedIndexChanged(object sender, EventArgs e)

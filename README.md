@@ -6,7 +6,7 @@ You can use this to connect Sailaway to a software (or hardware!) that accepts N
 
 Boat data is refreshed every 10 minutes. This is to avoid overloading the Sailaway servers, which can have an impact on game performance.
 
-# How to use
+## How to use
 
 1. Download and extract the [SailawayToNMEA_0.4a.zip](https://github.com/expilu/sailaway-api-to-nmea/releases/download/v0.4a/SailawayToNMEA_0.4a.zip)
 1. Run the application and wait for it to connect to the Sailaway server.
@@ -16,7 +16,16 @@ Boat data is refreshed every 10 minutes. This is to avoid overloading the Sailaw
 4. Click Start.
 5. Once the server is started you can connect to its address with the chosen TCP port from your hardware or software (qtVlm, OpenCPN,...). The address is usually 127.0.0.1 if you run both softwares in the same computer.
 
+### Command Line Arguments
 
+To run Sailaway to NMEA without having to set username and boatname after the launching it, the program supports command line arguments:
 
+- `-username <Sailaway user name>` (Optional, presets the user name)
+- `-boatname <Sailaway boat name>` (Optional, presets the boat´s name)
+- `-autostart` Starts NMEA logging without any user interaction (`-username` and `-boatname` have to be set, too)
+
+Example for desktop shortcut (field "Destination"):
+
+`C:\Users\foo\Tools\SailawayToNMEA\SailawayToNMEA.exe -username elpatron -boatname Dehumanizer -autostart`
 
 Take a look at the [WIKI](https://github.com/expilu/sailaway-api-to-nmea/wiki)!
