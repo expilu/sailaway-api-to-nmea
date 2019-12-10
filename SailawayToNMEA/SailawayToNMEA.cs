@@ -11,15 +11,15 @@ namespace SailawayToNMEA
     public partial class SailawayToNMEA : Form
     {
         private bool selectedBoatRefreshStarted = false;
-        public MyArguments arguments;
+        public Arguments arguments;
 
         public SailawayToNMEA(string[] args)
         {
             InitializeComponent();
-            CommandLineParser parser = new CommandLineParser(typeof(MyArguments));
+            CommandLineParser parser = new CommandLineParser(typeof(Arguments));
             try
             {
-                arguments = (MyArguments)parser.Parse(args);
+                arguments = (Arguments)parser.Parse(args);
             }
             catch (CommandLineArgumentException ex)
             {
@@ -34,6 +34,11 @@ namespace SailawayToNMEA
                 textBoxUsername.Text = arguments.username;
                 if (selectedBoatRefreshStarted) Global.Instance.StopSelectedBoatDataRefreshTask();
                 Global.Instance.GetUserBoats();
+
+            if (arguments.port > 0)
+                numericUpDownPort.Value = arguments.port;
+
+            checkBoxDeadReckoning.Checked = arguments.adr;
 
             if (arguments.boatname != "") comboBoxBoats.Text = arguments.boatname;
 
