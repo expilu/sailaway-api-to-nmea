@@ -5,14 +5,16 @@ namespace SailawayToNMEA
     public class Arguments
     {
         [CommandLineArgument]
-        public string username { get; set; }
+        public string Username { get; set; }
         [CommandLineArgument]
-        public string boatname { get; set; }
+        public string Boatname { get; set; }
         [CommandLineArgument]
-        public bool autostart { get; set; }
+        public string Launch { get; set; }
         [CommandLineArgument]
-        public int port { get; set; }
+        public bool Autostart { get; set; }
         [CommandLineArgument]
-        public bool adr { get; set; }
+        public int Port { get; set; }
+        [CommandLineArgument]
+        public bool Adr { get; set; }
     }
 }

@@ -27,9 +27,10 @@ To run Sailaway to NMEA without having to set username and boatname after the la
 - `-port <Value>` (sets the port value)
 - `-adr` (check *Activate dead reckoning*, if not given, *Activate dead reckoning* will be inactive)
 - `-autostart` (starts NMEA logging without any user interaction. Both `-username` and `-boatname` have to be set, too)
+- `-launch` (program to launch after startup)
 
 Example for desktop shortcut (field "Destination"):
 
-`C:\Users\foo\Tools\SailawayToNMEA\SailawayToNMEA.exe -username elpatron -boatname Dehumanizer -autostart -adr`
+`C:\Users\foo\Tools\SailawayToNMEA\SailawayToNMEA.exe -username "foo bar" -boatname "My boat" -autostart -adr -launch "C:\Program Files\qtVlm\qtVlm.exe"`
 
 Take a look at the [WIKI](https://github.com/expilu/sailaway-api-to-nmea/wiki)!

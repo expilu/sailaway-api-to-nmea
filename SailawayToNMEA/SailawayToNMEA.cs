@@ -3,6 +3,7 @@ using SailawayToNMEA.App;
 using SailawayToNMEA.App.Messages;
 using SailawayToNMEA.Model;
 using System;
+using System.Diagnostics;
 using System.ComponentModel;
 using System.Windows.Forms;
 
@@ -30,17 +31,15 @@ namespace SailawayToNMEA
 
         private void SailawayToNMEA_Load(object sender, EventArgs e)
         {
-            if (arguments.username != "") 
-                textBoxUsername.Text = arguments.username;
+            if (arguments.Username != "") 
+                textBoxUsername.Text = arguments.Username;
                 if (selectedBoatRefreshStarted) Global.Instance.StopSelectedBoatDataRefreshTask();
                 Global.Instance.GetUserBoats();
 
-            if (arguments.port > 0)
-                numericUpDownPort.Value = arguments.port;
+            if (arguments.Port > 0)
+                numericUpDownPort.Value = arguments.Port;
 
-            checkBoxDeadReckoning.Checked = arguments.adr;
-
-            if (arguments.boatname != "") comboBoxBoats.Text = arguments.boatname;
+            checkBoxDeadReckoning.Checked = arguments.Adr;
 
             Global.Instance.MessageHub.Subscribe<LogMessage>((m) => {
                 WriteToLog(m.Content);
@@ -127,7 +126,7 @@ namespace SailawayToNMEA
                 comboBoxBoats.DisplayMember = "BoatName";
                 comboBoxBoats.ValueMember = "BoatNumber";
                 comboBoxBoats.Enabled = hasBoats;
-                if (arguments.boatname != "")
+                if (arguments.Boatname != "")
                     try
                     {
                         int index = comboBoxBoats.FindString("Dehumanizer");
@@ -135,18 +134,27 @@ namespace SailawayToNMEA
                     }
                     catch (Exception ex)
                     {
-                        richTextBoxLog.Text = ex.Message;
+                        Global.Instance.MessageHub.PublishAsync(new LogMessage(this, new LogText(ex.Message)));
                     }
             }));
 
             buttonStart.Invoke(new Action(() =>
             {
                 buttonStart.Enabled = hasBoats;
-                if (arguments.autostart)
+                if (arguments.Autostart)
                     if (selectedBoatRefreshStarted)
                         Global.Instance.StopSelectedBoatDataRefreshTask();
                     else
                         Global.Instance.LaunchSelectedBoatDataRefreshTask();
+                        if (arguments.Launch != "")
+                            try
+                            {
+                                Process.Start(arguments.Launch);
+                            }
+                            catch (Exception ex)
+                            {
+                                Global.Instance.MessageHub.PublishAsync(new LogMessage(this, new LogText(ex.Message)));
+                            }
             }));
 
             if (!hasBoats) Global.Instance.SelectedBoatNumber = null;
