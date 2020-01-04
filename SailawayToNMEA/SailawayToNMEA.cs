@@ -39,7 +39,10 @@ namespace SailawayToNMEA
             if (arguments.Port > 0)
                 numericUpDownPort.Value = arguments.Port;
 
-            checkBoxDeadReckoning.Checked = arguments.Adr;
+            checkBoxDeadReckoning.Checked = !arguments.Adroff;
+
+            if (arguments.Minimized)
+                this.WindowState = FormWindowState.Minimized;
 
             Global.Instance.MessageHub.Subscribe<LogMessage>((m) => {
                 WriteToLog(m.Content);

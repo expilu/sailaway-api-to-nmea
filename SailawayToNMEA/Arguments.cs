@@ -15,6 +15,8 @@ namespace SailawayToNMEA
         [CommandLineArgument]
         public int Port { get; set; }
         [CommandLineArgument]
-        public bool Adr { get; set; }
+        public bool Adroff { get; set; }
+        [CommandLineArgument]
+        public bool Minimized { get; set; }
     }
 }
