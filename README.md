@@ -27,7 +27,8 @@ To run Sailaway to NMEA without having to set username and boatname after the la
 - `-port <Value>` (sets the port value)
 - `-adroff` (uncheck *Activate dead reckoning*, if not given, *Activate dead reckoning* will be active)
 - `-autostart` (starts NMEA logging without any user interaction. Both `-username` and `-boatname` have to be set, too)
-- `-launch <Path to executable>` (program to launch after startup)
+- `-launch` <Path to executable>` (program to launch after startup)
+- `-minimize` (Start *SailawayToNMEA* minimized)
 
 Example for desktop shortcut (field "Destination"):
 

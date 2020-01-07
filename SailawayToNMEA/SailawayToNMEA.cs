@@ -31,7 +31,7 @@ namespace SailawayToNMEA
 
         private void SailawayToNMEA_Load(object sender, EventArgs e)
         {
-            if (arguments.Username != "") 
+            if (arguments.Username != null) 
                 textBoxUsername.Text = arguments.Username;
                 if (selectedBoatRefreshStarted) Global.Instance.StopSelectedBoatDataRefreshTask();
                 Global.Instance.GetUserBoats();
@@ -129,10 +129,10 @@ namespace SailawayToNMEA
                 comboBoxBoats.DisplayMember = "BoatName";
                 comboBoxBoats.ValueMember = "BoatNumber";
                 comboBoxBoats.Enabled = hasBoats;
-                if (arguments.Boatname != "")
+                if (arguments.Boatname != null)
                     try
                     {
-                        int index = comboBoxBoats.FindString("Dehumanizer");
+                        int index = comboBoxBoats.FindString(arguments.Boatname);
                         comboBoxBoats.SelectedIndex = index;
                     }
                     catch (Exception ex)
@@ -149,7 +149,7 @@ namespace SailawayToNMEA
                         Global.Instance.StopSelectedBoatDataRefreshTask();
                     else
                         Global.Instance.LaunchSelectedBoatDataRefreshTask();
-                        if (arguments.Launch != "")
+                        if (arguments.Launch != null)
                             try
                             {
                                 Process.Start(arguments.Launch);
