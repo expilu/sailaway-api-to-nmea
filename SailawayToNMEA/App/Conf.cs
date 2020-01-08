@@ -3,7 +3,7 @@
     public class Conf
     {
         public const string API_BASE_URL = "https://backend.sailaway.world/cgi-bin/sailaway";
-        public const string API_KEY = "46f635d39a8efeb973091413513d0a6a";
+        public const string API_KEY = "<your API Key here>";
 #if DEBUG
         public const int REQUEST_RATE = 60000;
 #else
