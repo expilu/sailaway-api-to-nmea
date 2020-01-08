@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AutoLaunchProgramProblem" xml:space="preserve">
+    <value>Could not auto launch the specified program</value>
+  </data>
   <data name="BoatDataRefreshed" xml:space="preserve">
     <value>Selected boat data refreshed from Sailaway server</value>
   </data>
   <data name="BoatDataRefreshedDeadReckoning" xml:space="preserve">
     <value>Selected boat data refreshed by dead reckoning (estimated position)</value>
+  </data>
+  <data name="BoatNotFound" xml:space="preserve">
+    <value>The boat passed in arguments was not found</value>
   </data>
   <data name="ClientConnected" xml:space="preserve">
     <value>Client connected from </value>
@@ -145,7 +151,7 @@
     <value>Refresh rate set to </value>
   </data>
   <data name="SailawayConnectionProblem" xml:space="preserve">
-    <value>Sailaway conenction problem: </value>
+    <value>Sailaway connection problem: </value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Start</value>

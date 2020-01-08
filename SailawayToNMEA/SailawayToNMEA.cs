@@ -6,6 +6,7 @@ using System;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace SailawayToNMEA
 {
@@ -137,7 +138,7 @@ namespace SailawayToNMEA
                     }
                     catch (Exception ex)
                     {
-                        Global.Instance.MessageHub.PublishAsync(new LogMessage(this, new LogText(ex.Message)));
+                        Global.Instance.MessageHub.PublishAsync(new LogMessage(this, new LogText($"{Global.Instance.Texts.GetString("BoatNotFound")}", Color.Red)));
                     }
             }));
 
@@ -156,7 +157,7 @@ namespace SailawayToNMEA
                             }
                             catch (Exception ex)
                             {
-                                Global.Instance.MessageHub.PublishAsync(new LogMessage(this, new LogText(ex.Message)));
+                                Global.Instance.MessageHub.PublishAsync(new LogMessage(this, new LogText($"{Global.Instance.Texts.GetString("AutoLaunchProgramProblem")}: {ex.Message}", Color.Red)));
                             }
             }));
 
