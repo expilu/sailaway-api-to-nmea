@@ -43,12 +43,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\NMEAServerLib.dll</HintPath>
     </Reference>
-    <Reference Include="RestSharp, Version=106.6.3.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
-      <HintPath>packages\RestSharp.106.6.3\lib\net452\RestSharp.dll</HintPath>
+    <Reference Include="Ookii.CommandLine, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0c15020868fd6249, processorArchitecture=MSIL">
+      <HintPath>packages\Ookii.CommandLine.2.3.0\lib\net20\Ookii.CommandLine.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.0.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>packages\RestSharp.106.9.0\lib\net452\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -74,6 +79,7 @@
     <Compile Include="Model\BoatInfo.cs" />
     <Compile Include="API\Response\BoatsResponse.cs" />
     <Compile Include="Model\LogText.cs" />
+    <Compile Include="Arguments.cs" />
     <Compile Include="SailawayToNMEA.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,6 +112,9 @@
       <LastGenOutput>Texts.Designer.cs</LastGenOutput>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <None Include="..\README.md">
+      <Link>README.md</Link>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

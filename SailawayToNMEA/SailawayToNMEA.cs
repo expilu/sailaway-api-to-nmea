@@ -1,23 +1,50 @@
-﻿using SailawayToNMEA.App;
+﻿using Ookii.CommandLine;
+using SailawayToNMEA.App;
 using SailawayToNMEA.App.Messages;
 using SailawayToNMEA.Model;
 using System;
+using System.Diagnostics;
 using System.ComponentModel;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace SailawayToNMEA
 {
     public partial class SailawayToNMEA : Form
     {
         private bool selectedBoatRefreshStarted = false;
+        public Arguments arguments;
 
-        public SailawayToNMEA()
+        public SailawayToNMEA(string[] args)
         {
             InitializeComponent();
+            CommandLineParser parser = new CommandLineParser(typeof(Arguments));
+            try
+            {
+                arguments = (Arguments)parser.Parse(args);
+            }
+            catch (CommandLineArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+                parser.WriteUsageToConsole();
+            }
         }
 
         private void SailawayToNMEA_Load(object sender, EventArgs e)
         {
+            if (arguments.Username != null) 
+                textBoxUsername.Text = arguments.Username;
+                if (selectedBoatRefreshStarted) Global.Instance.StopSelectedBoatDataRefreshTask();
+                Global.Instance.GetUserBoats();
+
+            if (arguments.Port > 0)
+                numericUpDownPort.Value = arguments.Port;
+
+            checkBoxDeadReckoning.Checked = !arguments.Adroff;
+
+            if (arguments.Minimized)
+                this.WindowState = FormWindowState.Minimized;
+
             Global.Instance.MessageHub.Subscribe<LogMessage>((m) => {
                 WriteToLog(m.Content);
             });
@@ -103,15 +130,38 @@ namespace SailawayToNMEA
                 comboBoxBoats.DisplayMember = "BoatName";
                 comboBoxBoats.ValueMember = "BoatNumber";
                 comboBoxBoats.Enabled = hasBoats;
+                if (arguments.Boatname != null)
+                    try
+                    {
+                        int index = comboBoxBoats.FindString(arguments.Boatname);
+                        comboBoxBoats.SelectedIndex = index;
+                    }
+                    catch (Exception ex)
+                    {
+                        Global.Instance.MessageHub.PublishAsync(new LogMessage(this, new LogText($"{Global.Instance.Texts.GetString("BoatNotFound")}", Color.Red)));
+                    }
             }));
 
             buttonStart.Invoke(new Action(() =>
             {
                 buttonStart.Enabled = hasBoats;
+                if (arguments.Autostart)
+                    if (selectedBoatRefreshStarted)
+                        Global.Instance.StopSelectedBoatDataRefreshTask();
+                    else
+                        Global.Instance.LaunchSelectedBoatDataRefreshTask();
+                        if (arguments.Launch != null)
+                            try
+                            {
+                                Process.Start(arguments.Launch);
+                            }
+                            catch (Exception ex)
+                            {
+                                Global.Instance.MessageHub.PublishAsync(new LogMessage(this, new LogText($"{Global.Instance.Texts.GetString("AutoLaunchProgramProblem")}: {ex.Message}", Color.Red)));
+                            }
             }));
 
-            
-            if(!hasBoats) Global.Instance.SelectedBoatNumber = null;
+            if (!hasBoats) Global.Instance.SelectedBoatNumber = null;
         }
 
         private void comboBoxBoats_SelectedIndexChanged(object sender, EventArgs e)
