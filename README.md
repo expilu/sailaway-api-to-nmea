@@ -8,7 +8,7 @@ Boat data is refreshed every 10 minutes. This is to avoid overloading the Sailaw
 
 ## How to use
 
-1. Download and extract [SailawayToNMEA_0.5.2.zip](https://github.com/elpatron68/sailaway-api-to-nmea/releases/download/0.5.2/SailawayToNMEA_0.5.2.zip)
+1. Download and extract [SailawayToNMEA_1.0.zip](https://github.com/expilu/sailaway-api-to-nmea/releases/download/v1.0/SailawayToNMEA_1.0.zip)
 2. Run the application and wait for it to connect to the Sailaway server.
 3. Select the TCP port you want to use.
 4. Enter your username (exactly!) and then click in _Load boats_. The boats will only appear if you have been online in the game in the past 7 days.
