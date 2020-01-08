@@ -1,7 +1,5 @@
 # Sailaway to NMEA
 
-*This is a fork of https://github.com/expilu/sailaway-api-to-nmea. Command line arguments for non-interactive start were added*
-
 This is a Windows application that retrieves your boat data from Sailaway server and sends it through TCP using NMEA sentences.
 
 You can use this to connect Sailaway to a software (or hardware!) that accepts NMEA sentences + TCP. Specially useful for routing software such as qtVlm or OpenCPN.
