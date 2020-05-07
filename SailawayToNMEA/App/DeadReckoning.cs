@@ -25,7 +25,7 @@ namespace SailawayToNMEA.App
                         double timeElapsed = ((TimeSpan) (DateTime.Now - Global.Instance.Boat.FixTime)).TotalMilliseconds / 1000;
                         double speed = Global.Instance.Boat.SpeedOverGround ?? 0;
                         double distance = speed * timeElapsed;
-                        double heading = Global.Instance.Boat.CourseOverGround ?? Global.Instance.Boat.Heading;
+                        double heading = Global.Instance.Boat.Heading;
                         double radius = 6371 * 1000;
                         double δ = distance / radius;
                         double θ = toRadians(heading);
