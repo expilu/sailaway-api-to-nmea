@@ -78,8 +78,9 @@ namespace SailawayToNMEA.Model
 
         public void toInstrumentsData(ref InstrumentsData instrumentsData)
         {
+            instrumentsData.Virtual = true;
             int awa = Convert.ToInt32(ApparentWindAngle);
-            int awa360 = awa < 0 ? awa + 360 : awa;
+            int awa360 = awa < 0 ? awa + 360 : awa;            
             instrumentsData.ApparentWindAngle = awa360;
             instrumentsData.ApparentWindSpeed = ApparentWindSpeed * Conf.MS_TO_KNOTS;
             instrumentsData.CourseOverGround = Convert.ToInt32(CourseOverGround);
