@@ -43,7 +43,10 @@ namespace SailawayToNMEA
             this.buttonLoadBoats = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.checkBoxDeadReckoning = new System.Windows.Forms.CheckBox();
+            this.numericUpDownDeadReckoningRate = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPort)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDeadReckoningRate)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -166,19 +169,59 @@ namespace SailawayToNMEA
             this.checkBoxDeadReckoning.AutoSize = true;
             this.checkBoxDeadReckoning.Checked = true;
             this.checkBoxDeadReckoning.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxDeadReckoning.Location = new System.Drawing.Point(310, 81);
+            this.checkBoxDeadReckoning.Location = new System.Drawing.Point(373, 81);
             this.checkBoxDeadReckoning.Name = "checkBoxDeadReckoning";
-            this.checkBoxDeadReckoning.Size = new System.Drawing.Size(142, 17);
+            this.checkBoxDeadReckoning.Size = new System.Drawing.Size(171, 17);
             this.checkBoxDeadReckoning.TabIndex = 11;
-            this.checkBoxDeadReckoning.Text = "Activate dead reckoning";
+            this.checkBoxDeadReckoning.Text = "Activate dead reckoning every";
             this.checkBoxDeadReckoning.UseVisualStyleBackColor = true;
             this.checkBoxDeadReckoning.CheckedChanged += new System.EventHandler(this.checkBoxDeadReckoning_CheckedChanged);
+            // 
+            // numericUpDownDeadReckoningRate
+            // 
+            this.numericUpDownDeadReckoningRate.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownDeadReckoningRate.Location = new System.Drawing.Point(541, 78);
+            this.numericUpDownDeadReckoningRate.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownDeadReckoningRate.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownDeadReckoningRate.Name = "numericUpDownDeadReckoningRate";
+            this.numericUpDownDeadReckoningRate.Size = new System.Drawing.Size(45, 20);
+            this.numericUpDownDeadReckoningRate.TabIndex = 12;
+            this.numericUpDownDeadReckoningRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownDeadReckoningRate.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(592, 83);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(46, 13);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "seconds";
             // 
             // SailawayToNMEA
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 507);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.numericUpDownDeadReckoningRate);
             this.Controls.Add(this.checkBoxDeadReckoning);
             this.Controls.Add(this.richTextBoxLog);
             this.Controls.Add(this.buttonLoadBoats);
@@ -198,6 +241,7 @@ namespace SailawayToNMEA
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SailawayToNMEA_FormClosing);
             this.Load += new System.EventHandler(this.SailawayToNMEA_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPort)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDeadReckoningRate)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -216,6 +260,8 @@ namespace SailawayToNMEA
         private Button buttonLoadBoats;
         private RichTextBox richTextBoxLog;
         private CheckBox checkBoxDeadReckoning;
+        private NumericUpDown numericUpDownDeadReckoningRate;
+        private Label label5;
     }
 }
 
