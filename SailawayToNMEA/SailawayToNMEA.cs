@@ -42,6 +42,8 @@ namespace SailawayToNMEA
 
             checkBoxDeadReckoning.Checked = !arguments.Adroff;
 
+            numericUpDownDeadReckoningRate.Value = arguments.Drrate;
+
             if (arguments.Minimized)
                 this.WindowState = FormWindowState.Minimized;
 
