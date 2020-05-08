@@ -42,6 +42,8 @@ namespace SailawayToNMEA
 
             checkBoxDeadReckoning.Checked = !arguments.Adroff;
 
+            numericUpDownDeadReckoningRate.Value = arguments.Drrate;
+
             if (arguments.Minimized)
                 this.WindowState = FormWindowState.Minimized;
 
@@ -83,6 +85,11 @@ namespace SailawayToNMEA
                 comboBoxBoats.Invoke(new Action(() =>
                 {
                     comboBoxBoats.Enabled = !started;
+                }));
+
+                numericUpDownDeadReckoningRate.Invoke(new Action(() =>
+                {
+                    numericUpDownDeadReckoningRate.Enabled = !started;
                 }));
             });
 
@@ -207,6 +214,11 @@ namespace SailawayToNMEA
         private void checkBoxDeadReckoning_CheckedChanged(object sender, EventArgs e)
         {
             DeadReckoning.Active = checkBoxDeadReckoning.Checked;
+        }
+
+        private void numericUpDownDeadReckoningRate_ValueChanged(object sender, EventArgs e)
+        {
+            DeadReckoning.Rate = Convert.ToInt32(numericUpDownDeadReckoningRate.Value);
         }
     }
 }

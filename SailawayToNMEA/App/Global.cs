@@ -60,6 +60,7 @@ namespace SailawayToNMEA.App
             NmeaServer.OnClientConnected += NmeaServer_OnClientConnected;
 
             DeadReckoning.Active = true;
+            DeadReckoning.Rate = 1;
             DeadReckoning.StartDeadReckoningTask();
         }
 

@@ -18,5 +18,7 @@ namespace SailawayToNMEA
         public bool Adroff { get; set; }
         [CommandLineArgument]
         public bool Minimized { get; set; }
+        [CommandLineArgument]
+        public int Drrate { get; set; }
     }
 }
