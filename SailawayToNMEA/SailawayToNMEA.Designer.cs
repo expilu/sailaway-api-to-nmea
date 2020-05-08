@@ -204,6 +204,7 @@ namespace SailawayToNMEA
             0,
             0,
             0});
+            this.numericUpDownDeadReckoningRate.ValueChanged += new System.EventHandler(this.numericUpDownDeadReckoningRate_ValueChanged);
             // 
             // label5
             // 

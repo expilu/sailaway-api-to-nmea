@@ -11,13 +11,15 @@ namespace SailawayToNMEA.App
     {
         public static bool Active { get; set; }
 
+        public static int Rate { get; set; }
+
         public static void StartDeadReckoningTask()
         {
             Task.Run(async () =>
             {
                 while (true)
                 {
-                    if (Global.Instance.Boat != null && Active)
+                    if (Global.Instance.Boat != null)
                     {
 
                         double currentLat = Global.Instance.Boat.Latitude;
@@ -51,10 +53,10 @@ namespace SailawayToNMEA.App
 
                         Global.Instance.Boat.FixQuality = NMEAServerLib.InstrumentsData.FixQualityType.ESTIMATED_DEAD_RECKONING;
 
-                        Global.Instance.MessageHub.PublishAsync(new SelectedBoatRefreshed(Global.Instance, Global.Instance.Boat));
+                        if(Active) Global.Instance.MessageHub.PublishAsync(new SelectedBoatRefreshed(Global.Instance, Global.Instance.Boat));
                     }
 
-                    await Task.Delay(Conf.DEAD_RECKONING_RATE);
+                    await Task.Delay(Rate * 1000);
                 }
             });
         }
